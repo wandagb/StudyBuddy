@@ -9,6 +9,7 @@ export const Routing = () => {
     return (
         <Router>
             <Routes>
+                <Route path="/" element={<LoginPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/create" element={<FlashCardPage />} />
