@@ -1,10 +1,10 @@
 import { Navbar } from "../NavBar";
 
-export const HomePage = () => {
+export const FlashCardPage = () => {
     return (
         <>
         <Navbar/>
-        <h1>Home Page</h1>
+        <h1>FlashCard Page</h1>
         
         </>
     );
