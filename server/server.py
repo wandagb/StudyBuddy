@@ -1,6 +1,10 @@
 from flask import Flask
 from firebase_admin import credentials,initialize_app
 
+# Insert path here
+cred = credentials.Certificate("key.json")
+default_app = initialize_app(cred)
+
 
 app = Flask(__name__)
 
