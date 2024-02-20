@@ -15,6 +15,9 @@ Flashcard studying app for CS35L
 
 ### Running the server
 - cd into server
-- run python3 -m venv venv
-- pip3 install Flask
-- "python3 server.py" to run server
+- `python3 -m venv venv` to create the virtual environment (venv)
+- run `source venv/bin/activate` to enter venv
+- `python3 -m pip install --upgrade pip` to make sure your pip is version 24.0
+- run `pip3 install Flask`
+- run `pip3 install firebase-admin`
+- `python3 server.py` to run server
