@@ -1,11 +1,16 @@
-import { Routing } from './routing';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { FlashCardPage } from './flashcardPage';
+
 
 function App(){
 
-
   return (
-    <Routing />
-  )
+    <Router>
+        <Routes>
+            <Route path="/create" element={<FlashCardPage />} />                
+        </Routes>
+    </Router>
+)
 }
 
 export default App;
