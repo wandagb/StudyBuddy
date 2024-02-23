@@ -4,7 +4,7 @@ Flashcard studying app for CS35L
 # Running the App
 ## Client
 ### Running the Client
-- make sure npm and node are installed 
+- make sure to `npm install` before starting
 - cd into client
 - `npm start` to run app
 - if error with react-router-dom, run "npm install react-router-dom"

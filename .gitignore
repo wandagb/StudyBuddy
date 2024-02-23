@@ -28,6 +28,7 @@ yarn-error.log*
 # api keys
 config.js
 key.json
+.env
 
 # Visual Studio Code 
 .vscode/* 
