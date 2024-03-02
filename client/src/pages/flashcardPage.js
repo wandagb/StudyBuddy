@@ -3,21 +3,30 @@ import "../App.css";
 import Card from "../components/flashcard"
 
 export const FlashCardPage = () => {
-  // state variable that will contain information from backend api 
-  const [flashCardSet, setFlashCardSet] = useState([{}]);
+  // state variable that will contain information from api
+  // flashcard is in JSON format
+  const [flashCard, setFlashCard] = useState([{}]);
 
-  // Fetching all flashcards in DB
-  useEffect(()=> {
-    fetch("/api/flashcards").then( // we can use relative route since we defined the proxy in the json file
-      response => response.json()
-    ).then(
-      data => {
-        setFlashCardSet(data);
-      }
-    )
-  }, []) // empty array so it only runs on the first render of the component
+  // Hard coded in ID from database as an example
+  const id = "65e2488eedf24d52e5381839";
+
+  // Calling api with ID to find one flashcard
+  useEffect(() => {
     
-
+    // Can find list of apis to use under server/routes/router.js
+    fetch(`/api/flashcard/${id}`, {
+      method: "GET"
+    })
+    // Saving the response we get from API as a json then storing it in our 'flashCard' variable
+      .then((response) => response.json())
+      .then((data) => {
+        setFlashCard(data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+    
+    // Indiviual Flashcards are structed as question and answer
+    // Can see structure of our data under server/models/schemas.js
     return (
 
         <>
@@ -25,14 +34,7 @@ export const FlashCardPage = () => {
         <h2>Click on a card to show the other side</h2>
 
         <div>
-            {typeof flashCardSet === 'undefined' ? (
-            <p>Loading...</p>
-            ) : (
-              //Iterating through all of the flashcards in DB
-              flashCardSet.map((card, i) => (
-                <Card key={i} frontSide={card.question} backSide={card.answer} />
-              ))
-            )}
+          <Card frontSide={flashCard.question} backSide={flashCard.answer} />
                 
         </div>
         </>

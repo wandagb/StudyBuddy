@@ -8,7 +8,7 @@ function App(){
   return (
     <Router>
         <Routes>
-            <Route path="/create" element={<FlashCardPage />} />
+            <Route path="/view-flashcard" element={<FlashCardPage />} />
             <Route path="/home" element={<Home />} />                   
         </Routes>
     </Router>
