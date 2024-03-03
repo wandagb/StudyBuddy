@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { FlashCardPage } from './pages/FlashcardPage';
+import { FlashCardPage } from './pages/flashcardPage';
 import { Home } from './pages/Home';
 import { LoginPage } from './pages/LoginPage';
 import { FlashcardSetPage } from './pages/FlashSet';
