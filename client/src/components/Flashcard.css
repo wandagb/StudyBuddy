@@ -1,0 +1,18 @@
+.flash-card {
+    width: 25vmin;
+    height: 15vmin;
+    border: 5px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px;
+    text-align: center;
+  }
+
+.flash-card.front {
+background-color: #9dd5aa;
+}
+
+.flash-card.back {
+background-color: #c1c1ac;
+}
+

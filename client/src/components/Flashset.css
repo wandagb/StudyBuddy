@@ -1,0 +1,35 @@
+.set-container {
+  display:flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.set-card {
+    width: 25vmin;
+    height: 15vmin;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    overflow: hidden;
+    margin: 20px;
+  }
+
+  .set__name {
+    display: block;
+    font-size: 15px;
+    margin-bottom: .25rem;
+    font-size: 18px;
+  }
+
+  .set-card:hover {
+    cursor: pointer;
+    background-color: #f6f7fb;
+    width: 27vmin;
+    height: 17vmin;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
+  }

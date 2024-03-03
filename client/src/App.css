@@ -1,27 +1,27 @@
-.flash-card {
-    width: 25vmin;
-    height: 15vmin;
-    border: 5px solid #ccc;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 20px;
-    text-align: center;
-  }
-  
-  .flash-card.front {
-    background-color: #9dd5aa;
-  }
-  
-  .flash-card.back {
-    background-color: #c1c1ac;
-  }
+html, body {
+  background: #f1f1f1;
+  margin: 0;
+  font-family: "Arial";
+  display:grid;
+  align-items: center;
+  color: #2e3856;
+}
+.wrapper-main {
+  width: 1000px;
+  margin: 0 auto;
+}
+.pages{
+  margin: auto;
+}
 
-  .flash-set {
-    width: 25vmin;
-    height: 15vmin;
-    border: 5px solid #ccc;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 20px;
-    text-align: center;
-  }
+.section-container{
+  max-width: 1650px;
+  margin: auto;
+  padding: 30px;
+}
+
+
+:root {
+  --primary: #1aac83;
+  --error: #e7195a;
+}

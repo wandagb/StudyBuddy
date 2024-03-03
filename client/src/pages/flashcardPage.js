@@ -28,15 +28,15 @@ export const FlashCardPage = () => {
     // Indiviual Flashcards are structed as question and answer
     // Can see structure of our data under server/models/schemas.js
     return (
-
         <>
-        <h1>FlashCard Page</h1>
+        <section class ="section-container">
         <h2>Click on a card to show the other side</h2>
 
         <div>
           <Card frontSide={flashCard.question} backSide={flashCard.answer} />
                 
         </div>
+        </section>
         </>
 
     );

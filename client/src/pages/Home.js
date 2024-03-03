@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import "../App.css";
 import useFetch from '../useFetch';
-import FlashSet from "../components/flash-set.js"
+import FlashSet from "../components/Flashset.js"
 
 // Home page, see all sets that user owns
 
@@ -31,16 +31,24 @@ export const Home = () => {
 
     //Iterates through flashSet and puts into list blocks
     const listSets = flashSet.map(set =>
-        <FlashSet key={set._id} name={set.name} />
+        <FlashSet key={set._id} name={set.name} setID={set._id} />
         );
   
     return (
         <>
-            <h1>{user.name}'s home</h1>
-            
-            <div>
-                Saved Sets:
-                {listSets}
+        <div className='wrapper-main'>
+            <div className='section-container'>
+                <h1 className="title">{user.name}'s home</h1>
+                Logged in as {user.username}
+                
+                <div className='section-container'>
+                    Saved Sets:
+                    <div className="set-container">
+                    {listSets}
+                    </div>
+                </div>
+                </div>
+                
             </div>
 
         </>
