@@ -4,6 +4,7 @@ import { Home } from './pages/Home';
 import { LoginPage } from './pages/LoginPage';
 import { FlashcardSetPage } from './pages/FlashSet';
 import { ExplorePage } from './pages/ExplorePage';
+import {SetForm} from './pages/Create'
 import Navbar from './components/Navbar';
 
 function App(){
@@ -12,7 +13,8 @@ function App(){
     <Router>
         <Navbar />
         <Routes>
-            <Route path="/view-flashcard" element={<FlashCardPage />} />                  
+            <Route path="/view-flashcard" element={<FlashCardPage />} />   
+            <Route path="/create" element={<SetForm />} />                                 
             <Route path="/home" element={<Home />} />
             <Route path="/explore" element={<ExplorePage />} /> 
             <Route path="/login" element={<LoginPage />} /> 
