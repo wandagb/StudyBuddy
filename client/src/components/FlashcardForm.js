@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import '../components/submitButton.css';
+import '../components/create.css';
 
 const FlashcardForm = (id) => {
     const [question, setQuestion] = useState('')
@@ -41,25 +43,27 @@ const FlashcardForm = (id) => {
     }
 
     return ( 
-        <form className="create" onSubmit={handleSubmit}>
+        <div className='create-container'>
+        <form className="Create" onSubmit={handleSubmit}>
             <h3>Add flashcard</h3>
 
             <label>Question:</label>
-            <input 
+            <input className = 'search-box'
                 type="text"
                 onChange={(e) => setQuestion(e.target.value)}
                 value={question}
                 />
 
             <label>Answer:</label>
-            <input 
+            <input className = 'search-box'
                 type="text"
                 onChange={(e) => setAnswer(e.target.value)}
                 value={answer}
                 />
-            <button>Add Flashcard</button>
+            <button className='submit-button'>Add Flashcard</button>
             {error && <div className="error"> {error} </div>}
         </form>
+        </div>
         
     )
 }
