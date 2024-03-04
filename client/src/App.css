@@ -6,10 +6,12 @@ html, body {
   align-items: center;
   color: #2e3856;
 }
+
 .wrapper-main {
   width: 1000px;
   margin: 0 auto;
 }
+
 .pages{
   margin: auto;
 }
@@ -19,7 +21,6 @@ html, body {
   margin: auto;
   padding: 30px;
 }
-
 
 :root {
   --primary: #1aac83;

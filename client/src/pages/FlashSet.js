@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import FlashcardForm from '../components/FlashcardForm';
 import useFetch from '../useFetch'
 import "../App.css";
 import "../components/Flashset"
@@ -27,6 +28,7 @@ export const FlashcardSetPage = () => {
                 </div>
 
             </div>
+            <FlashcardForm id={setID} />
                 
         </div>
         
