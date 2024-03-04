@@ -16,14 +16,12 @@ router.get("/api/user/:id", async (req, res) => {
 
     const users = schemas.users
 
-    try{
-        const user = await users.findById(id)
-
-        res.send(user)
-
-    } catch (error) {
-        console.log(err)
+    const user = await users.findById(id)
+    if(!user) {
+        return res.status(404).json({error: 'User not found.'})
     }
+
+    res.status(200).json(user)
 });
 
 // Create a user
@@ -35,21 +33,19 @@ router.post("/api/user", async (req, res) => {
     const newUser = new schemas.users(userData)
     
     const saveUser = await newUser.save()
-
-    if(saveUser){
-    res.send('Added')
-    } else {
-        res.end('Failed to create user.')
+     
+    try{
+        const saveUser = await newUser.save()
+        res.status(200).json(saveUser)
+    } catch (error) {
+        res.status(400).json({error: error.message})
     }
-
-    res.end()
 });
 
 // Add a flashcard set to a user's library
 // Requires: id of Set
-router.put("/api/user/:id/set", async (req, res) => {
+router.patch("/api/user/:id/set", async (req, res) => {
     const setID = req.body.id
-
 
     const userID = req.params.id
     
@@ -60,12 +56,12 @@ router.put("/api/user/:id/set", async (req, res) => {
         {_id: userID},
         { $push: {sets: setID}});
 
-    if(update){
-        res.send('Added set to user liibrary.')
-    } else {
-        res.end('Failed to add.')
+    
+    if(!update) {
+        return res.status(400).json({error: 'User not found'})
     }
-    res.end()
+
+    res.status(200).json(update)
 });
 
 ////////////////////
@@ -79,14 +75,26 @@ router.get("/api/set/:id", async (req, res) => {
 
     const flashset = schemas.flashsets
 
-    try{
-        const set = await flashset.findById(id)
-
-        res.send(set)
-
-    } catch (error) {
-        console.log(err)
+    const set = await flashset.findById(id)
+    if(!set) {
+        return res.status(404).json({error: 'No such set'})
     }
+
+    res.status(200).json(set)
+});
+
+// Get all sets from database
+router.get("/api/sets", async (req, res) => {
+
+    const flashset = schemas.flashsets
+
+    const set = await flashset.find()
+
+    if(!set) {
+        return res.status(400).json({error: error.message})
+    }
+
+    return res.status(200).json(set)
 });
 
 // Create an empty flashcard set
@@ -97,57 +105,54 @@ router.post("/api/set", async (req, res) => {
 
     const newSet = new schemas.flashsets(FlashCardData)
     
-    const saveSet = await newSet.save()
-
-    if(saveSet){
-        res.send('Created flashcard set.')
-    } else {
-        res.end('Failed to create.')
+    try{
+        const saveSet = await newSet.save()
+        res.status(200).json(saveSet)
+    } catch (error) {
+        res.status(400).json({error: error.message})
     }
-    res.end()
 });
 
-// Add a flashcard to an existing set
-// Requires: body of an indiviual flashcard ( question and answer )
-router.put("/api/set/:id/flashcard", async (req, res) => {
-    const {question, answer} = req.body
-    const FlashCardData = {question: question, answer: answer}
-
-    // Add flashcard to database
-    const newFlashcard = new schemas.flashcards(FlashCardData)
-    const createdCard = await newFlashcard.save()
-    const cardID = createdCard._id
+// Add an existing flashcard to an existing set
+// Requires: cardID
+router.patch("/api/set/:id/flashcard", async (req, res) => {
 
    // Find specicic set
     const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: `Set ${id} not found.`})
+    }
+
     const sets = schemas.flashsets
+
+    const { cardID } = req.body;
 
     // Push to set's array 'card' with new flashcard's id
     const update = await sets.findOneAndUpdate(
         {_id: id},
-        { $push: {cards: cardID}});
+        { $push: {cards: cardID}},
+        {new: true});
     
-    if(createdCard && update){
-        res.send('Added flashcard to set.')
-    } else {
-        res.end('Failed to add.')
+    if(!update) {
+        return res.status(400).json({error: `Could not update`})
     }
-    res.end()
+
+    res.status(200).json(update)
 });
 
 // Get a flashcard with id
 router.get("/api/flashcard/:id", async (req, res) => {
     const flashcards = schemas.flashcards
     const id = req.params.id
-    try{
-        const card = await flashcards.findById(id)
 
-        res.send(card)
+    const card = await flashcards.findById(id)
 
-    } catch (error) {
-        console.log(err)
+    if(!card) {
+        return res.status(400).json({error: 'Flashcard not found.'})
     }
 
+    return res.status(200).json(card)
 });
 
 
@@ -158,15 +163,13 @@ router.post("/api/flashcard", async (req, res) => {
     const FlashCardData = {setID: id, question: question, answer: answer}
 
     const newCard = new schemas.flashcards(FlashCardData)
-    
-    const saveCard = await newCard.save()
 
-    if(saveCard){
-    res.send('Created flashcard.')
-    } else {
-        res.end('Failed to create.')
+    try{
+        const saveCard = await newCard.save()
+        res.status(200).json(saveCard)
+    } catch (error) {
+        res.status(400).json({error: error.message})
     }
-    res.end()
 });
 
 module.exports = router
