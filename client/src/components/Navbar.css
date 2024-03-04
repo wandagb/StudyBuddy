@@ -21,6 +21,11 @@ ul li{
     cursor: pointer;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 .search-box{
     display: flex;
     align-items: center;
