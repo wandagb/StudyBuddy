@@ -3,6 +3,7 @@
   justify-content: center;
   flex-wrap: wrap;
   margin-top: 10px;
+  align-items: center;
 }
 
 .set-card {
@@ -24,6 +25,8 @@
     font-size: 15px;
     margin-bottom: .25rem;
     font-size: 18px;
+    padding: 10px;
+    text-align: center;
   }
 
   .set-card:hover {

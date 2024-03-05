@@ -5,6 +5,8 @@ html, body {
   display:grid;
   align-items: center;
   color: #2e3856;
+  width: 100%;
+
 }
 
 .wrapper-main {
