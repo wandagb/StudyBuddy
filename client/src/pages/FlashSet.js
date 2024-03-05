@@ -7,6 +7,7 @@ import FlashcardForm from '../components/FlashcardForm';
 export const FlashcardSetPage = () => {
     const { setID } = useParams();
     const { data: set, isLoading, error } = useFetch(`/api/set/${setID}`);
+    const [openForm, setOpenForm] = useState(false);
     const [flashcards, setFlashcards] = useState([]);
 
     useEffect(() => {
@@ -33,11 +34,19 @@ export const FlashcardSetPage = () => {
     if (error) return <div>Error: {error}</div>;
 
     return (
-        <>
+        <>       
             <div className='wrapper-main'>
-                <div className='section-container'>
-                    <h1 className="title">{set?.name}</h1>
+            <div className='section-container'>
+                <h1 className="title">{set?.name}</h1>
                     <div className='section-container'>
+                    <button className='toggle-button'
+                    onClick={() => {
+                        setOpenForm(true);
+                    }}
+                    >
+                        ⚙
+                    </button>
+                    {openForm && <FlashcardForm id={setID} closeForm ={setOpenForm} onAddFlashcard={handleAddFlashcard}/>}
                         <div className='set-container'>
                             {flashcards.map((flashcard) => (
                                 <Card key={flashcard._id} frontSide={flashcard.question} backSide={flashcard.answer} />
@@ -45,7 +54,6 @@ export const FlashcardSetPage = () => {
                         </div>
                     </div>
                 </div>
-                <FlashcardForm id={setID} onAddFlashcard={handleAddFlashcard}/>
             </div>
         </>
     );
