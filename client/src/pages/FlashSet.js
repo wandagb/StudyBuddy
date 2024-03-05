@@ -3,8 +3,11 @@ import FlashcardForm from '../components/FlashcardForm';
 import useFetch from '../useFetch'
 import "../App.css";
 import "../components/Flashset"
+import { useState } from 'react';
 
 export const FlashcardSetPage = () => {
+
+    const [openForm, setOpenForm] = useState(false);
 
     // Get parameter from URL 
     const { setID } = useParams();
@@ -16,19 +19,24 @@ export const FlashcardSetPage = () => {
     // then we can render it using the Flashcard component instead
 
     return (
-        <>
-        <div className='wrapper-main'>
+        <>       
+            <div className='wrapper-main'>
             <div className='section-container'>
                 <h1 className="title">{set.name}</h1>
-
+                    <button className='toggle-button'
+                    onClick={() => {
+                        setOpenForm(true);
+                    }}
+                    >
+                        ⚙
+                    </button>
+                    {openForm && <FlashcardForm id={setID} closeForm ={setOpenForm} />}
                 <div className='section-container'>
                     <div className='set-container'>
                         Flashcards go here
                     </div>
                 </div>
-
             </div>
-            <FlashcardForm id={setID} />
                 
         </div>
         

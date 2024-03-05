@@ -15,3 +15,16 @@
   .submit-button:hover {
     background-color: #292670; /* Darker Green */
   }
+
+  .toggle-button {
+    background-color: #48459f; 
+    border: none;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+
+  .toggle-button:hover {
+    background-color: #292670; /* Darker Green */
+  }

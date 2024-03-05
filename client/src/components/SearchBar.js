@@ -9,7 +9,7 @@ export default function SearchBar() {
     // Handle when user types
     const handleFilter = (event) => {
         const searchWord = event.target.value
-        
+
         // Filter our data based on user input in our data 
         const newFilter = sets.filter((value) => {
             return value.name.toLowerCase().includes(searchWord.toLowerCase());
