@@ -1,22 +1,37 @@
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useFetch from '../useFetch';
+import Card from '../components/flashcard'; 
 import FlashcardForm from '../components/FlashcardForm';
-import useFetch from '../useFetch'
-import "../App.css";
-import "../components/Flashset"
-import { useState } from 'react';
 
 export const FlashcardSetPage = () => {
-
-    const [openForm, setOpenForm] = useState(false);
-
-    // Get parameter from URL 
     const { setID } = useParams();
+    const { data: set, isLoading, error } = useFetch(`/api/set/${setID}`);
+    const [openForm, setOpenForm] = useState(false);
+    const [flashcards, setFlashcards] = useState([]);
 
-    const { data: set } = useFetch(`/api/set/${setID}`)
+    useEffect(() => {
+        const fetchFlashcards = async () => {
+            if (set?.cards) {
+                const fetchedFlashcards = await Promise.all(set.cards.map(async (cardID) => {
+                    const response = await fetch(`/api/flashcard/${cardID}`);
+                    const data = await response.json();
+                    return data;
+                }));
+                setFlashcards(fetchedFlashcards);
+            }
+        };
 
-    // TO DO: loop through set's flashcard IDs and fetch their data
-    // ( similar to way done to fetch a user's sets in Home.js )
-    // then we can render it using the Flashcard component instead
+        fetchFlashcards();
+    }, [set]);
+
+    const handleAddFlashcard = (newFlashcard) => {
+        setFlashcards(currentFlashcards => [...currentFlashcards, newFlashcard]);
+    };
+
+
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
 
     return (
         <>       
@@ -31,16 +46,23 @@ export const FlashcardSetPage = () => {
                         ⚙
                     </button>
                     {openForm && <FlashcardForm id={setID} closeForm ={setOpenForm} />}
+            <div className='wrapper-main'>
                 <div className='section-container'>
-                    <div className='set-container'>
-                        Flashcards go here
+                    <h1 className="title">{set?.name}</h1>
+                    <div className='section-container'>
+                        <div className='set-container'>
+                            {flashcards.map((flashcard) => (
+                                <Card key={flashcard._id} frontSide={flashcard.question} backSide={flashcard.answer} />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
                 
         </div>
         
+                <FlashcardForm id={setID} onAddFlashcard={handleAddFlashcard}/>
+            </div>
         </>
-
     );
-}
+};

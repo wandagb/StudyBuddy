@@ -2,7 +2,7 @@ import { useState } from 'react'
 import '../components/submitButton.css';
 import '../components/create.css';
 
-function FlashcardForm({id, closeForm}){
+const FlashcardForm = ({ id, onAddFlashcard, closeForm}) => {
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
     const [error, setError] = useState(null)
@@ -39,6 +39,9 @@ function FlashcardForm({id, closeForm}){
             if(!response.ok){
                 setError(update.error)
             }
+            if(response.ok){
+            onAddFlashcard(newFlashcard);
+
             if(response.ok){
             setAnswer('')
             setQuestion('')
