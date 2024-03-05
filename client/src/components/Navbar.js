@@ -1,7 +1,7 @@
 import './Navbar.css'
+import SearchBar from './SearchBar'
 
 const Navbar = () => {
-
     return (
         <header class ="header">
             <div class = "navbar"> 
@@ -17,9 +17,8 @@ const Navbar = () => {
                     <a class ="navbar__link"href="/explore">Explore</a>
                 </li>
             </ul>
-
-            <div className ='search-box'>
-                <input type="text" placeholder='Search'/>
+            <div className='search'>
+            <SearchBar />
             </div>
             </div>
         </header>
