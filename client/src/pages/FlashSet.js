@@ -37,7 +37,8 @@ export const FlashcardSetPage = () => {
         <>       
             <div className='wrapper-main'>
             <div className='section-container'>
-                <h1 className="title">{set.name}</h1>
+                <h1 className="title">{set?.name}</h1>
+                    <div className='section-container'>
                     <button className='toggle-button'
                     onClick={() => {
                         setOpenForm(true);
@@ -45,11 +46,7 @@ export const FlashcardSetPage = () => {
                     >
                         ⚙
                     </button>
-                    {openForm && <FlashcardForm id={setID} closeForm ={setOpenForm} />}
-            <div className='wrapper-main'>
-                <div className='section-container'>
-                    <h1 className="title">{set?.name}</h1>
-                    <div className='section-container'>
+                    {openForm && <FlashcardForm id={setID} closeForm ={setOpenForm} onAddFlashcard={handleAddFlashcard}/>}
                         <div className='set-container'>
                             {flashcards.map((flashcard) => (
                                 <Card key={flashcard._id} frontSide={flashcard.question} backSide={flashcard.answer} />
@@ -57,11 +54,6 @@ export const FlashcardSetPage = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-                
-        </div>
-        
-                <FlashcardForm id={setID} onAddFlashcard={handleAddFlashcard}/>
             </div>
         </>
     );
