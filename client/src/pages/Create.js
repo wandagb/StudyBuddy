@@ -11,20 +11,22 @@ export const SetForm = () => {
 
     // const [flashSet, setFlashSet] = useState([]);
     const [name, setName] = useState('');
-    // const [error, setError] = useState(null);
-    const navigate = useNavigate(); // Initialize useHistory hook
+    const [error, setError] = useState(null);
+    // const navigate = useNavigate(); 
 
 
     // Hardcoded UserID from database
-    // const userID = "65e256f05ca22e1f4b545aa3"
+    const userID = "65e256f05ca22e1f4b545aa3"
 
     const handleSubmit = async (e) =>{
-        navigate('/home');
+        // navigate('/home');
 
         e.preventDefault();
         
-        const set = {name}
+        const set = {name, userID}
 
+        
+        //fetch request
         const response = await fetch('/api/set', {
             method: 'POST',
             body: JSON.stringify(set),
@@ -37,13 +39,13 @@ export const SetForm = () => {
         const json = await response.json();
 
         if(!response.ok){
-            // setError({error: 'Error'}); 
+            setError(json.error); 
         }
 
         if(response.ok){
-            // setError(null);
-            setName('')
+            setError(null);
             console.log('New set added!', json);
+            setName('');
         }
     }    
     // redirect: reference home.js
@@ -61,12 +63,13 @@ export const SetForm = () => {
                             onChange={(e) => setName(e.target.value)}
                             value={name}
                         />
-                        <button className='submit-button'>
-                            submit
-                        </button>
-                        {/* {error && <div className="error"></div>} */}
+                        <button className='submit-button'> submit </button>
+                        {error && <div className="error">{error}</div>}
+
                     </form>
+
             </div>
+
         </div>
 
         </>

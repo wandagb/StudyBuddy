@@ -6,6 +6,7 @@ const FlashcardForm = (id) => {
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
     const [error, setError] = useState(null)
+    const [emptyFields, setEmptyFields] = useState([])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -24,6 +25,7 @@ const FlashcardForm = (id) => {
 
         if(!response.ok){
             setError(newFlashcard.error)
+            setEmptyFields(newFlashcard.emptyFields)
         }
 
         if (response.ok){
@@ -39,6 +41,7 @@ const FlashcardForm = (id) => {
             setAnswer('')
             setQuestion('')
             setError(null)
+            setEmptyFields([])
         }
     }
 
@@ -48,17 +51,19 @@ const FlashcardForm = (id) => {
             <h3>Add flashcard</h3>
 
             <label>Question:</label>
-            <input className = 'search-box'
+            <input
                 type="text"
                 onChange={(e) => setQuestion(e.target.value)}
                 value={question}
+                className={emptyFields.includes('question') ? `error_textbox` : 'search-box'}
                 />
 
             <label>Answer:</label>
-            <input className = 'search-box'
+            <input
                 type="text"
                 onChange={(e) => setAnswer(e.target.value)}
                 value={answer}
+                className={emptyFields.includes('answer') ? `error_textbox` : 'search-box'}
                 />
             <button className='submit-button'>Add Flashcard</button>
             {error && <div className="error"> {error} </div>}

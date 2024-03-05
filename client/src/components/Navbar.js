@@ -3,18 +3,18 @@ import './Navbar.css'
 const Navbar = () => {
 
     return (
-        <header class ="header">
-            <div class = "navbar"> 
-            <a class ="title" href="/home">FlashCard-App</a>
+        <header className ="header">
+            <div className = "navbar"> 
+            <a className ="title" href="/home">FlashCard-App</a>
             <ul>
                 <li>
-                    <a class ="navbar__link" href="/home">Home</a>
+                    <a className ="navbar__link" href="/home">Home</a>
                 </li>
                 <li>
-                    <a class ="navbar__link"href="/create">Create</a>
+                    <a className ="navbar__link"href="/create">Create</a>
                 </li>
                 <li>
-                    <a class ="navbar__link"href="/explore">Explore</a>
+                    <a className ="navbar__link"href="/explore">Explore</a>
                 </li>
             </ul>
 
