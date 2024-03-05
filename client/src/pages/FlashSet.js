@@ -24,6 +24,11 @@ export const FlashcardSetPage = () => {
         fetchFlashcards();
     }, [set]);
 
+    const handleAddFlashcard = (newFlashcard) => {
+        setFlashcards(currentFlashcards => [...currentFlashcards, newFlashcard]);
+    };
+
+
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
@@ -40,7 +45,7 @@ export const FlashcardSetPage = () => {
                         </div>
                     </div>
                 </div>
-                <FlashcardForm id={setID} />
+                <FlashcardForm id={setID} onAddFlashcard={handleAddFlashcard}/>
             </div>
         </>
     );

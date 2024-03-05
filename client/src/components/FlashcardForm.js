@@ -2,7 +2,7 @@ import { useState } from 'react'
 import '../components/submitButton.css';
 import '../components/create.css';
 
-const FlashcardForm = (id) => {
+const FlashcardForm = ({ id, onAddFlashcard }) => {
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
     const [error, setError] = useState(null)
@@ -35,6 +35,8 @@ const FlashcardForm = (id) => {
                     'Content-Type': 'application/json'
                 }
             });
+
+            onAddFlashcard(newFlashcard);
 
             setAnswer('')
             setQuestion('')
