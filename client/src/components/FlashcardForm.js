@@ -2,7 +2,7 @@ import { useState } from 'react'
 import '../components/submitButton.css';
 import '../components/create.css';
 
-const FlashcardForm = (id) => {
+const FlashcardForm = ({ id, onAddFlashcard, closeForm}) => {
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
     const [error, setError] = useState(null)
@@ -29,8 +29,7 @@ const FlashcardForm = (id) => {
         }
 
         if (response.ok){
-
-            const response = await fetch(`/api/set/${id.id}/flashcard`, {
+            const update = await fetch(`/api/set/${id}/flashcard`, {
                 method: 'PATCH',
                 body: JSON.stringify({cardID: newFlashcard._id}),
                 headers: {
@@ -38,16 +37,24 @@ const FlashcardForm = (id) => {
                 }
             });
 
-            setAnswer('')
-            setQuestion('')
-            setError(null)
-            setEmptyFields([])
+            if(!response.ok){
+                setError(update.error)
+            }
+            if(response.ok){
+                onAddFlashcard(newFlashcard);
+                setAnswer('')
+                setQuestion('')
+                setError(null)
+                setEmptyFields([])
+        }
         }
     }
-
     return ( 
         <div className='create-container'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+        <button className="toggle-button" onClick ={() => closeForm(false)}><i class="fa fa-close"></i></button>
         <form className="Create" onSubmit={handleSubmit}>
+        
             <h3>Add flashcard</h3>
 
             <label>Question:</label>
@@ -65,11 +72,11 @@ const FlashcardForm = (id) => {
                 value={answer}
                 className={emptyFields.includes('answer') ? `error_textbox` : 'search-box'}
                 />
+                
             <button className='submit-button'>Add Flashcard</button>
             {error && <div className="error"> {error} </div>}
         </form>
         </div>
-        
     )
 }
 
