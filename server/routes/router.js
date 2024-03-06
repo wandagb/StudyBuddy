@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const schemas = require('../models/schemas')
-const app = express
+const app = express()
 var mongoose = require('mongoose');
 // APIs that our frontend can call
 
