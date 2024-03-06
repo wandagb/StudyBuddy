@@ -100,9 +100,9 @@ router.get("/api/sets", async (req, res) => {
 // Create an empty flashcard set
 // Requires: Name of set
 router.post("/api/set", async (req, res) => {
-    const {name} = req.body
-    const FlashCardData = {name: name}
+    const {name, userID} = req.body
 
+    const FlashCardData = {name: name, owner: userID}
     const newSet = new schemas.flashsets(FlashCardData)
     
     try{

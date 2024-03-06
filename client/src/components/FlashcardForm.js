@@ -52,7 +52,7 @@ const FlashcardForm = ({ id, onAddFlashcard, closeForm}) => {
     return ( 
         <div className='create-container'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-        <button className="toggle-button" onClick ={() => closeForm(false)}><i class="fa fa-close"></i></button>
+        <button className="toggle-button" onClick ={() => closeForm(false)}><i className="fa fa-close"></i></button>
         <form className="Create" onSubmit={handleSubmit}>
         
             <h3>Add flashcard</h3>

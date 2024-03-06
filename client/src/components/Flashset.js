@@ -15,8 +15,8 @@ export default function FlashSet(props) {
 
     return (
             <div className="set-card" onClick={handleClick}>
-                <div class="set__data">
-                    <span class="set__name">{setName}</span>
+                <div className="set__data">
+                    <span className="set__name">{setName}</span>
 
                 </div>
             </div>
