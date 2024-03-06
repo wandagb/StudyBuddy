@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import "../App.css";
@@ -8,24 +7,24 @@ import '../components/create.css';
 
 // Create form, create a new set
 export const SetForm = () => {
+    // TODO: Don't allow duplicate sets for same user
 
     // const [flashSet, setFlashSet] = useState([]);
     const [name, setName] = useState('');
-    // const [error, setError] = useState(null);
-    const navigate = useNavigate(); // Initialize useHistory hook
+    const [error, setError] = useState(null);
+    const navigate = useNavigate(); 
 
 
     // Hardcoded UserID from database
-    // const userID = "65e256f05ca22e1f4b545aa3"
+    const userID = "65e256f05ca22e1f4b545aa3"
 
     const handleSubmit = async (e) =>{
-        navigate('/home');
 
         e.preventDefault();
         
-        const set = {name}
+        const set = {name, userID}
 
-        const response = await fetch('/api/set', {
+        const createSetResponse = await fetch('/api/set', {
             method: 'POST',
             body: JSON.stringify(set),
             headers: {
@@ -34,19 +33,39 @@ export const SetForm = () => {
 
         });
 
-        const json = await response.json();
+        const json = await createSetResponse.json();
 
-        if(!response.ok){
-            // setError({error: 'Error'}); 
+        if(!createSetResponse.ok){
+            setError(json.error); 
         }
 
-        if(response.ok){
-            // setError(null);
-            setName('')
+        if(createSetResponse.ok){
+            setError(null);
             console.log('New set added!', json);
+            setName('');
+            const id_path = json._id.toString();
+            
+            //add this setID to the users sets
+            const setUserResponse = await fetch(`/api/user/${userID}/set`, {
+                method: 'PATCH',
+                body: JSON.stringify({id: id_path}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }    
+            });
+
+            const addedSetJson = await setUserResponse.json();
+            if(!setUserResponse.ok){
+                console.log("Error adding set to user");
+            }
+            if(setUserResponse.ok){
+                console.log('Added set to user')
+            }
+
+            // route to set that was just created
+            navigate('/set/' + id_path);
         }
     }    
-    // redirect: reference home.js
     return (
         <>
         <div className='wrapper-main'>
@@ -61,12 +80,13 @@ export const SetForm = () => {
                             onChange={(e) => setName(e.target.value)}
                             value={name}
                         />
-                        <button className='submit-button'>
-                            submit
-                        </button>
-                        {/* {error && <div className="error"></div>} */}
+                        <button className='submit-button'> submit </button>
+                        {error && <div className="error">{error}</div>}
+
                     </form>
+
             </div>
+
         </div>
 
         </>

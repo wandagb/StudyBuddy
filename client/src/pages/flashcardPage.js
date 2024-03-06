@@ -29,7 +29,7 @@ export const FlashCardPage = () => {
     // Can see structure of our data under server/models/schemas.js
     return (
         <>
-        <section class ="section-container">
+        <section className ="section-container">
         <h2>Click on a card to show the other side</h2>
 
         <div>

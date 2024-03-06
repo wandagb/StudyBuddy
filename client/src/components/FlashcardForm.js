@@ -6,6 +6,7 @@ const FlashcardForm = ({ id, onAddFlashcard, closeForm}) => {
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
     const [error, setError] = useState(null)
+    const [emptyFields, setEmptyFields] = useState([])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -24,6 +25,7 @@ const FlashcardForm = ({ id, onAddFlashcard, closeForm}) => {
 
         if(!response.ok){
             setError(newFlashcard.error)
+            setEmptyFields(newFlashcard.emptyFields)
         }
 
         if (response.ok){
@@ -43,29 +45,32 @@ const FlashcardForm = ({ id, onAddFlashcard, closeForm}) => {
                 setAnswer('')
                 setQuestion('')
                 setError(null)
-            }
+                setEmptyFields([])
+        }
         }
     }
     return ( 
         <div className='create-container'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-        <button className="toggle-button" onClick ={() => closeForm(false)}><i class="fa fa-close"></i></button>
+        <button className="toggle-button" onClick ={() => closeForm(false)}><i className="fa fa-close"></i></button>
         <form className="Create" onSubmit={handleSubmit}>
         
             <h3>Add flashcard</h3>
 
             <label>Question:</label>
-            <input className = 'search-box'
+            <input
                 type="text"
                 onChange={(e) => setQuestion(e.target.value)}
                 value={question}
+                className={emptyFields.includes('question') ? `error_textbox` : 'search-box'}
                 />
 
             <label>Answer:</label>
-            <input className = 'search-box'
+            <input
                 type="text"
                 onChange={(e) => setAnswer(e.target.value)}
                 value={answer}
+                className={emptyFields.includes('answer') ? `error_textbox` : 'search-box'}
                 />
                 
             <button className='submit-button'>Add Flashcard</button>

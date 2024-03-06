@@ -2,6 +2,7 @@
     width: 70%; /* Set the width of the form container */
     max-width: 600px; /* Optionally, set a maximum width to prevent it from becoming too wide */
     margin: 20px auto; /* Center the form container horizontally */
+    height: 260px;
     padding: 20px;
     background-color: #f7f7f7;
     border-radius: 10px;
@@ -19,4 +20,23 @@
     width: 100%; /* Make the form fill the entire width of its container */
   }
   
-  
+  .error{
+   padding: 10px;
+   background: #ffefef;
+   border: 1px solid var(--error);
+   color: var(--error);
+   border-radius: 4px;
+   margin: 20px 0;
+  }
+
+  .error_textbox{
+    display: flex;
+    align-items: center;
+    background: #f1f1f1;
+    padding: 2px 25px;
+    border-color: #939bb4;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 1rem;
+    border: 1px solid var(--error);
+  }

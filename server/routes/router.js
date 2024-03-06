@@ -100,16 +100,21 @@ router.get("/api/sets", async (req, res) => {
 // Create an empty flashcard set
 // Requires: Name of set
 router.post("/api/set", async (req, res) => {
-    const {name} = req.body
-    const FlashCardData = {name: name}
+    const {name, userID} = req.body
 
+    const FlashCardData = {name: name, owner: userID}
     const newSet = new schemas.flashsets(FlashCardData)
     
     try{
         const saveSet = await newSet.save()
         res.status(200).json(saveSet)
     } catch (error) {
-        res.status(400).json({error: error.message})
+        if(!name){
+            res.status(400).json({error: 'Please fill in all fields'})
+        }
+        else{
+            res.status(400).json({error: error.message})
+        }
     }
 });
 
@@ -135,6 +140,7 @@ router.patch("/api/set/:id/flashcard", async (req, res) => {
         {new: true});
     
     if(!update) {
+
         return res.status(400).json({error: `Could not update`})
     }
 
@@ -160,6 +166,16 @@ router.get("/api/flashcard/:id", async (req, res) => {
 // Requires: Question and Answer
 router.post("/api/flashcard", async (req, res) => {
     const {id, question, answer} = req.body
+
+    let emptyFields = []
+
+    if(!question){
+        emptyFields.push('question')
+    }
+    if(!answer){
+        emptyFields.push('answer')
+    }
+
     const FlashCardData = {setID: id, question: question, answer: answer}
 
     const newCard = new schemas.flashcards(FlashCardData)
@@ -168,7 +184,13 @@ router.post("/api/flashcard", async (req, res) => {
         const saveCard = await newCard.save()
         res.status(200).json(saveCard)
     } catch (error) {
-        res.status(400).json({error: error.message})
+
+        if(emptyFields.length > 0){
+            res.status(400).json({error: 'Please fill in all fields', emptyFields})
+        }
+        else{
+            res.status(400).json({error: error.message})
+        }
     }
 });
 

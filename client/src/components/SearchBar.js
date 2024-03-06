@@ -29,7 +29,7 @@ export default function SearchBar() {
         {filteredData.length !== 0 && (
         <div className = "dataResult">
             {filteredData.slice(0, 5).map((value, key) => {
-                return <a className="dataItem" href={`/set/${value._id}`}>
+                return <a className="dataItem" href={`/set/${value._id}`} key={value._id}>
                         <p>{value.name}</p>
                         </a>
             })}

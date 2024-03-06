@@ -16,7 +16,8 @@ const userSchema = new Schema({
 const flashcardSetSchema = new Schema({
     id: {type:Number},
     name: {type:String, required:true},
-    cards: [String]
+    cards: [String],
+    owner: {type:String}
 })
 
 // Indiviual flashcards
