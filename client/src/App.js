@@ -6,6 +6,7 @@ import { FlashcardSetPage } from './pages/FlashSet';
 import { ExplorePage } from './pages/ExplorePage';
 import {SetForm} from './pages/Create'
 import Navbar from './components/Navbar';
+import { RatingPage } from './pages/ratingPage';
 
 function App(){
 
@@ -18,7 +19,8 @@ function App(){
             <Route path="/home" element={<Home />} />
             <Route path="/explore" element={<ExplorePage />} /> 
             <Route path="/login" element={<LoginPage />} /> 
-            <Route path="/set/:setID" element={<FlashcardSetPage />} />                    
+            <Route path="/set/:setID" element={<FlashcardSetPage />} />  
+            <Route path="/rate" element={<RatingPage />} />                  
         </Routes>
     </Router>
 )
