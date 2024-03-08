@@ -3,12 +3,14 @@ import { useParams } from 'react-router-dom';
 import useFetch from '../useFetch';
 import Card from '../components/flashcard'; 
 import FlashcardForm from '../components/FlashcardForm';
+import RatingComponent from '../components/ratingComponent';
 
 export const FlashcardSetPage = () => {
     const { setID } = useParams();
     const { data: set, isLoading, error } = useFetch(`/api/set/${setID}`);
     const [openForm, setOpenForm] = useState(false);
     const [flashcards, setFlashcards] = useState([]);
+    const [openFeedback, setOpenFeedback] = useState(false);
 
     useEffect(() => {
         const fetchFlashcards = async () => {
@@ -53,6 +55,14 @@ export const FlashcardSetPage = () => {
                             ))}
                         </div>
                     </div>
+                    <button className='toggle-button'
+                    onClick={() => {
+                        setOpenFeedback(true);
+                    }}
+                    >
+                        +
+                    </button>
+                    {openFeedback && <RatingComponent closeForm ={setOpenFeedback}/>}
                 </div>
             </div>
         </>

@@ -29,7 +29,7 @@
   }
 
   .show-comments {  
-    display: inline-block;
+    display: flex;
     margin-right: 10px;
     flex-direction: row;
     max-width: 350px;
@@ -41,3 +41,10 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: all 0.2s;
   }
+
+  .comment-arr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  

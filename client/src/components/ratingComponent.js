@@ -4,15 +4,13 @@ import "../App.css"
 import "../components/ratingPage.css";
 import "../components/submitButton.css"
 import RateBar from '../components/RateBar';
-import RatingComponent from '../components/ratingComponent';
 
-export const RatingPage = () => {
+export default function RatingComponent({closeForm}) {
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
     const [flashcardSetName, setFlashcardSetName] = useState("");
-    const [openFeedback, setOpenFeedback] = useState(false)
 
     useEffect(() => {
         fetchComments();
@@ -36,16 +34,12 @@ export const RatingPage = () => {
         setComment(e.target.value)
     };
     const onClickHandler = async () => {
-        if (!flashcardSetName){
-            alert("Must select flashcard set to comment");
-            return;
-        }
         if (rating === null) {
             alert("Please select a rating before submitting.");
             return;
         }
 
-        const combinedFeedback = "Set Name: " + flashcardSetName + "\nRating: " + rating + " stars\nComment: " + comment;
+        const combinedFeedback = "Rating: " + rating + " stars\nComment: " + comment;
 
         try {
             const response = await fetch('/api/feedback', {
@@ -71,8 +65,8 @@ export const RatingPage = () => {
     };
     return (
         <div className="star-rating-container">
+            <button className="toggle-button" onClick ={() => closeForm(false)}>X</button>
             <h1 className='title'>Leave some Feedback!</h1>
-            <RateBar onSelect={(setName) => setFlashcardSetName(setName)} />
             <div className="star-array">
             {[...Array(5)].map((star, index) => {
                 const currentRating = index + 1;
@@ -100,20 +94,13 @@ export const RatingPage = () => {
             <textarea value={comment} onChange={onChangeHandler} placeholder="Enter your comment here..."className='comment-box'/>
             
             <h1>Your rating is {rating}</h1>
-            <button onClick={onClickHandler} className="submit-button">Submit</button>
+            <button className="submit-button">Submit</button>
             <div className="comment-arr">
             {comments.map((comment) => (
                 <div className='show-comments'><pre>{comment.combinedFeedback}</pre></div>
             ))}
             </div>
-            <button className='toggle-button'
-                    onClick={() => {
-                        setOpenFeedback(true);
-                    }}
-                    >
-                        +
-                    </button>
-                    {openFeedback && <RatingComponent closeForm ={setOpenFeedback}/>}
-        </div>
+            </div>
+            
     )
 }
