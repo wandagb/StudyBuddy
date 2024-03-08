@@ -10,59 +10,59 @@ var mongoose = require('mongoose');
 ///////////////
 
 // Get a user using ID
-router.get("/api/user/:id", async (req, res) => {
+// router.get("/api/user/:id", async (req, res) => {
 
-    const id = req.params.id
+//     const id = req.params.id
 
-    const users = schemas.users
+//     const users = schemas.users
 
-    const user = await users.findById(id)
-    if(!user) {
-        return res.status(404).json({error: 'User not found.'})
-    }
+//     const user = await users.findById(id)
+//     if(!user) {
+//         return res.status(404).json({error: 'User not found.'})
+//     }
 
-    res.status(200).json(user)
-});
+//     res.status(200).json(user)
+// });
 
-// Create a user
-// Requires: Name, Username and Email
-router.post("/api/user", async (req, res) => {
-    const {name, username, email} = req.body
-    const userData = {name: name, username: username, email: email}
+// // Create a user
+// // Requires: Name, Username and Email
+// router.post("/api/user", async (req, res) => {
+//     const {name, username, email} = req.body
+//     const userData = {name: name, username: username, email: email}
 
-    const newUser = new schemas.users(userData)
+//     const newUser = new schemas.users(userData)
     
-    const saveUser = await newUser.save()
+//     const saveUser = await newUser.save()
      
-    try{
-        const saveUser = await newUser.save()
-        res.status(200).json(saveUser)
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-});
+//     try{
+//         const saveUser = await newUser.save()
+//         res.status(200).json(saveUser)
+//     } catch (error) {
+//         res.status(400).json({error: error.message})
+//     }
+// });
 
-// Add a flashcard set to a user's library
-// Requires: id of Set
-router.patch("/api/user/:id/set", async (req, res) => {
-    const setID = req.body.id
+// // Add a flashcard set to a user's library
+// // Requires: id of Set
+// router.patch("/api/user/:id/set", async (req, res) => {
+//     const setID = req.body.id
 
-    const userID = req.params.id
+//     const userID = req.params.id
     
-    const users = schemas.users
+//     const users = schemas.users
 
-    // Find user and add setID to array
-    const update = await users.findOneAndUpdate(
-        {_id: userID},
-        { $push: {sets: setID}});
+//     // Find user and add setID to array
+//     const update = await users.findOneAndUpdate(
+//         {_id: userID},
+//         { $push: {sets: setID}});
 
     
-    if(!update) {
-        return res.status(400).json({error: 'User not found'})
-    }
+//     if(!update) {
+//         return res.status(400).json({error: 'User not found'})
+//     }
 
-    res.status(200).json(update)
-});
+//     res.status(200).json(update)
+// });
 
 ////////////////////
 /* Flashcard APIs */

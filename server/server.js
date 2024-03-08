@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const router  = require('./routes/router')
+const flashcardRoutes  = require('./routes/router')
+const userRoutes = require('./routes/user')
 const mongoose = require('mongoose')
 require('dotenv/config')
 
@@ -19,7 +20,8 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
-app.use('/', router)
+app.use('/', flashcardRoutes)
+app.use('/api/user', userRoutes)
 
 const dbOptions = {useNewUrlParser:true, useUnifiedTopology:true}
 
