@@ -23,10 +23,10 @@ userSchema.statics.signup = async function(email, username, password) {
         throw Error('Invalid email')
     }
 
-    if(!validator.isStrongPassword(password)){
-        throw Error('Weak password')
+    if(username.length <= 3){
+        throw Error('Username must be longer than 3 characters')
     }
-    
+
     const emailExists = await this.findOne({ email })
 
     if(emailExists) {
@@ -38,6 +38,9 @@ userSchema.statics.signup = async function(email, username, password) {
         throw Error('Username already in use')
     }
 
+    if(!validator.isStrongPassword(password)){
+        throw Error('Weak password')
+    }
 
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
