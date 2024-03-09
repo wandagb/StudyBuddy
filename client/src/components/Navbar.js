@@ -1,9 +1,11 @@
 import './Navbar.css'
 import SearchBar from './SearchBar'
 import { useLogout } from '../hooks/useLogout'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const Navbar = () => {
     const { logout } = useLogout()
+    const { user } = useAuthContext()
   
     const handleClick = () => {
       logout()
@@ -13,18 +15,22 @@ const Navbar = () => {
         <header className ="header">
             <div className = "navbar"> 
             <a className ="title" href="/home">FlashCard-App</a>
-            <ul>
-                <nav>
-                    <div>
-                        <button onClick={handleClick}>Log out</button>
-                    </div>
-                <li>
-                    <a class ="navbar__link" href="/login">Login</a>
+            <ul>     
+                
+                {user && (<span>{user.email}</span>) &&(<div>
+                    <button onClick={handleClick}>Log out</button>
+                </div>)}
+                {!user && (
+                    <li>
+                    <a className ="navbar__link" href="/login">Login</a>
                 </li>
+                
+                )}
+                {!user && (
                 <li>
-                    <a class ="navbar__link" href="/signup">Signup</a>
-                </li>
-                </nav>
+                    <a className ="navbar__link" href="/signup">Signup</a>
+                </li>)}
+            
                 <li>
                     <a className ="navbar__link" href="/home">Home</a>
                 </li>

@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom'
 
 // Sample Set Card
 
-export default function FlashSet(props) {
+const FlashSet = ({set}) => {
     const navigate = useNavigate()
-    const setName = props.name
-    const setID = props.setID
+    const setName = set.name
+    const setID = set._id
 
     function handleClick() {
         navigate(`/set/${setID}`)
@@ -17,8 +17,9 @@ export default function FlashSet(props) {
             <div className="set-card" onClick={handleClick}>
                 <div className="set__data">
                     <span className="set__name">{setName}</span>
-
                 </div>
             </div>
     );
 }
+
+export default FlashSet

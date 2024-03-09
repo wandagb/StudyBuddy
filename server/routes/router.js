@@ -3,14 +3,33 @@ const router = express.Router()
 const schemas = require('../models/schemas')
 const app = express()
 var mongoose = require('mongoose');
+const requireAuth = require('../middleware/requireAuth');
+
+router.use(requireAuth)
+
 // APIs that our frontend can call
 
 ////////////////////
 /* Flashcard APIs */
 ////////////////////
+// Find user's sets only
+router.get("/user-sets", async (req, res) => {
+
+    const user_id = req.user._id
+
+    const flashset = schemas.flashsets
+
+    const sets = await flashset.find({owner: user_id})
+    if(!sets) {
+        return res.status(404).json({error: 'No sets found'})
+    }
+
+    res.status(200).json(sets)
+});
+
 
 // Find set with id
-router.get("/api/set/:id", async (req, res) => {
+router.get("/set/:id", async (req, res) => {
 
     const id = req.params.id
 
@@ -25,7 +44,7 @@ router.get("/api/set/:id", async (req, res) => {
 });
 
 // Get all sets from database
-router.get("/api/sets", async (req, res) => {
+router.get("/sets", async (req, res) => {
 
     const flashset = schemas.flashsets
 
@@ -40,10 +59,12 @@ router.get("/api/sets", async (req, res) => {
 
 // Create an empty flashcard set
 // Requires: Name of set
-router.post("/api/set", async (req, res) => {
-    const {name, userID} = req.body
+router.post("/set", async (req, res) => {
+    const {name} = req.body
 
-    const FlashCardData = {name: name, owner: userID}
+    const user_id = req.user._id
+    
+    const FlashCardData = {name: name, owner: user_id}
     const newSet = new schemas.flashsets(FlashCardData)
     
     try{
@@ -57,11 +78,12 @@ router.post("/api/set", async (req, res) => {
             res.status(400).json({error: error.message})
         }
     }
+    
 });
 
 // Add an existing flashcard to an existing set
 // Requires: cardID
-router.patch("/api/set/:id/flashcard", async (req, res) => {
+router.patch("/set/:id/flashcard", async (req, res) => {
 
    // Find specicic set
     const { id } = req.params;
@@ -88,12 +110,12 @@ router.patch("/api/set/:id/flashcard", async (req, res) => {
     res.status(200).json(update)
 });
 
-// Get a flashcard with id
-router.get("/api/flashcard/:id", async (req, res) => {
+// Get flashcard from a set
+router.get("/flashcard/:id", async (req, res) => {
     const flashcards = schemas.flashcards
-    const id = req.params.id
+    const set_id = req.params.id
 
-    const card = await flashcards.findById(id)
+    const card = await flashcards.find({set_id: set_id})
 
     if(!card) {
         return res.status(400).json({error: 'Flashcard not found.'})
@@ -105,8 +127,8 @@ router.get("/api/flashcard/:id", async (req, res) => {
 
 // Create one flashcard
 // Requires: Question and Answer
-router.post("/api/flashcard", async (req, res) => {
-    const {id, question, answer} = req.body
+router.post("/flashcard", async (req, res) => {
+    const {set_id, question, answer} = req.body
 
     let emptyFields = []
 
@@ -117,7 +139,7 @@ router.post("/api/flashcard", async (req, res) => {
         emptyFields.push('answer')
     }
 
-    const FlashCardData = {setID: id, question: question, answer: answer}
+    const FlashCardData = {set_id: set_id, question: question, answer: answer}
 
     const newCard = new schemas.flashcards(FlashCardData)
 

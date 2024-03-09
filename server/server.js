@@ -22,7 +22,7 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
-app.use('/', flashcardRoutes)
+app.use('/api/items', flashcardRoutes)
 app.use('/api/user', userRoutes)
 
 const dbOptions = {useNewUrlParser:true, useUnifiedTopology:true}

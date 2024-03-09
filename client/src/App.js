@@ -1,25 +1,24 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { FlashCardPage } from './pages/flashcardPage';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { Home } from './pages/Home';
-import { Login } from './pages/Login';
-import { Signup } from './pages/SignUp';
+import { LoginPage } from './pages/LoginPage';
+import { SignupPage } from './pages/SignUpPage';
 import { FlashcardSetPage } from './pages/FlashSet';
 import { ExplorePage } from './pages/ExplorePage';
-import {SetForm} from './pages/Create'
+import { SetForm } from './pages/CreatePage'
+import { useAuthContext } from './hooks/useAuthContext';
 import Navbar from './components/Navbar';
 
 function App(){
-
+    const { user } = useAuthContext()
   return (
     <Router>
         <Navbar />
         <Routes>
-            <Route path="/view-flashcard" element={<FlashCardPage />} />   
-            <Route path="/create" element={<SetForm />} />                                 
-            <Route path="/" element={<Home />} />
+            <Route path="/create" element= {<SetForm/>  }   />                          
+            <Route path="/home" element={!user ? <Navigate to="/login"/> : <Home />} />
             <Route path="/explore" element={<ExplorePage />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} /> 
+            <Route path="/signup" element={!user ? <SignupPage />: <Navigate to ="/home"/>} />
+            <Route path="/login" element={!user ? <LoginPage />: <Navigate to ="/home"/>} /> 
             <Route path="/set/:setID" element={<FlashcardSetPage />} />                    
         </Routes>
     </Router>
