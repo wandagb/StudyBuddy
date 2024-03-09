@@ -8,6 +8,7 @@ const FlashSet = ({set}) => {
     const navigate = useNavigate()
     const setName = set.name
     const setID = set._id
+    const owner = set.owner
 
     function handleClick() {
         navigate(`/set/${setID}`)
@@ -17,6 +18,7 @@ const FlashSet = ({set}) => {
             <div className="set-card" onClick={handleClick}>
                 <div className="set__data">
                     <span className="set__name">{setName}</span>
+                    <span className="set__name">@{owner}</span>
                 </div>
             </div>
     );

@@ -39,14 +39,15 @@ export const FlashcardSetPage = () => {
         fetchSet()
         fetchCards()
         
-        }, [dispatch, user]);
+        }, [dispatch, cardDispatch, setID, user]);
 
 
     return (
         <>       
             <div className='wrapper-main'>
             <div className='section-container'>
-                <h1 className="title">{sets.name}</h1>
+                <h1 className="title">{sets?.name}</h1>
+                <h2 className="title">@{sets?.owner}</h2>
                     <div className='section-container'>
                     {user && <button className='toggle-button'
                     onClick={() => {

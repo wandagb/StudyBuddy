@@ -9,7 +9,6 @@ const userSchema = new Schema({
     username: {type: String, unique: true, required: true},
     email: {type:String, unique: true, required:true},
     password: {type: String, required: true},
-    sets: [String]
 })
 
 userSchema.statics.signup = async function(email, username, password) {
@@ -36,10 +35,6 @@ userSchema.statics.signup = async function(email, username, password) {
     const usernameExists = await this.findOne({ username })
     if(usernameExists) {
         throw Error('Username already in use')
-    }
-
-    if(!validator.isStrongPassword(password)){
-        throw Error('Weak password')
     }
 
     const salt = await bcrypt.genSalt(10)

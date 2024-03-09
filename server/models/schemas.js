@@ -6,7 +6,6 @@ const Schema = mongoose.Schema
 // Sets of flashcards, link to indiviual flashcards
 const flashcardSetSchema = new Schema({
     name: {type:String, required:true},
-    cards: [String],
     owner: {type:String}
 })
 

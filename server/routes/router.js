@@ -5,6 +5,11 @@ const app = express()
 var mongoose = require('mongoose');
 const requireAuth = require('../middleware/requireAuth');
 
+
+////////////////////
+/* Flashcard APIs */
+////////////////////
+
 // Get all sets from database
 router.get("/sets", async (req, res) => {
 
@@ -34,30 +39,6 @@ router.get("/flashcard/:id", async (req, res) => {
     return res.status(200).json(card)
 });
 
-
-router.use(requireAuth)
-
-// APIs that our frontend can call
-
-////////////////////
-/* Flashcard APIs */
-////////////////////
-// Find user's sets only
-router.get("/user-sets", async (req, res) => {
-
-    const user_id = req.user._id
-
-    const flashset = schemas.flashsets
-
-    const sets = await flashset.find({owner: user_id})
-    if(!sets) {
-        return res.status(404).json({error: 'No sets found'})
-    }
-
-    res.status(200).json(sets)
-});
-
-
 // Find set with id
 router.get("/set/:id", async (req, res) => {
 
@@ -73,6 +54,24 @@ router.get("/set/:id", async (req, res) => {
     res.status(200).json(set)
 });
 
+//Below are routes that are secured ( require authentication )
+router.use(requireAuth)
+
+
+// Find user's sets only
+router.get("/user-sets", async (req, res) => {
+
+    const user_id = req.username.username
+
+    const flashset = schemas.flashsets
+
+    const sets = await flashset.find({owner: user_id})
+    if(!sets) {
+        return res.status(404).json({error: 'No sets found'})
+    }
+
+    res.status(200).json(sets)
+});
 
 
 // Create an empty flashcard set
@@ -80,7 +79,7 @@ router.get("/set/:id", async (req, res) => {
 router.post("/set", async (req, res) => {
     const {name} = req.body
 
-    const user_id = req.user._id
+    const user_id = req.username.username
     
     const FlashCardData = {name: name, owner: user_id}
     const newSet = new schemas.flashsets(FlashCardData)
