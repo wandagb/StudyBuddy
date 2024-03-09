@@ -13,31 +13,41 @@ export const SignupPage = () => {
         await signup(email, username, password)
     }
 
-    return (
-        <form className='signup' onSubmit={handleSubmit}>
-            <h3>Sign Up</h3>
-
+    return ( 
+        <div className='form-container'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+        
+        <form className="Create" onSubmit={handleSubmit}>
+        
+            <h3>Sign up!</h3>
+            
             <label>Email:</label>
             <input
-                type="email"
+                type="text"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                />
-            <label>Username:</label>
-            <input
-                type="username"
-                onChange={(e) => setUsername(e.target.value)}
-                value={username}
-                />
-            <label>Password:</label>
-            <input
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}
+                className='search-box'
                 />
 
-            <button disabled={isLoading}>Sign Up</button>
+            <label>username:</label>
+            <input
+                type="text"
+                onChange={(e) => setUsername(e.target.value)}
+                value={username}
+                className= 'search-box'
+                />
+
+            <label>Password:</label>
+            <input
+                type="text"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                className= 'search-box'
+                />
+                
+            <button disabled={isLoading} className='submit-button'>Login</button>
             {error && <div className="error"> {error} </div>}
         </form>
+        </div>
     )
 }

@@ -2,13 +2,18 @@ import './Navbar.css'
 import SearchBar from './SearchBar'
 import { useLogout } from '../hooks/useLogout'
 import { useAuthContext } from '../hooks/useAuthContext'
+import { useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
     const { logout } = useLogout()
     const { user } = useAuthContext()
-  
+    const navigate = useNavigate(); 
+
     const handleClick = () => {
-      logout()
+      logout();
+      navigate('/home/');
+
     }
 
     return (
@@ -16,10 +21,6 @@ const Navbar = () => {
             <div className = "navbar"> 
             <a className ="title" href="/home">FlashCard-App</a>
             <ul>     
-                
-                {user && (<span>{user.email}</span>) &&(<div>
-                    <button onClick={handleClick}>Log out</button>
-                </div>)}
                 {!user && (
                     <li>
                     <a className ="navbar__link" href="/login">Login</a>
@@ -30,20 +31,33 @@ const Navbar = () => {
                 <li>
                     <a className ="navbar__link" href="/signup">Signup</a>
                 </li>)}
-            
+                {user && (
                 <li>
                     <a className ="navbar__link" href="/home">Home</a>
                 </li>
+                )}
+                {user && (
                 <li>
                     <a className ="navbar__link"href="/create">Create</a>
                 </li>
+                )}
                 <li>
                     <a className ="navbar__link"href="/explore">Explore</a>
                 </li>
             </ul>
+            {user ? (
             <div className='search'>
-            <SearchBar />
+                <SearchBar />
             </div>
+            ) :
+                <div className ="indent"/>            
+            }
+            {user &&
+                (<div>
+                    <button className="logout-button" onClick={handleClick}>Log out</button>
+                </div>)
+                
+            }
             </div>
         </header>
     )

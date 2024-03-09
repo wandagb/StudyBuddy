@@ -17,9 +17,6 @@ export const FlashcardSetPage = () => {
     useEffect(() => {
         const fetchSet = async () => {
             const response = await fetch(`/api/items/set/${setID}`, {
-                headers: {
-                    'Authorization': `Bearer ${user.token}`
-                }
             })
             const json = await response.json()
 
@@ -31,9 +28,6 @@ export const FlashcardSetPage = () => {
         const fetchCards = async () => {
             console.log(setID)
             const response = await fetch(`/api/items/flashcard/${setID}`, {
-                headers: {
-                    'Authorization': `Bearer ${user.token}`
-                }
             })
             const json = await response.json()
 
@@ -41,10 +35,9 @@ export const FlashcardSetPage = () => {
                 cardDispatch({type: 'GET_CARDS', payload: json})
             }
         }
-        if (user){
-            fetchSet()
-            fetchCards()
-        }
+       
+        fetchSet()
+        fetchCards()
         
         }, [dispatch, user]);
 
@@ -55,13 +48,13 @@ export const FlashcardSetPage = () => {
             <div className='section-container'>
                 <h1 className="title">{sets.name}</h1>
                     <div className='section-container'>
-                    <button className='toggle-button'
+                    {user && <button className='toggle-button'
                     onClick={() => {
                         setOpenForm(true);
                     }}
                     >
                         ⚙
-                    </button>
+                    </button>}
                     {openForm && <FlashcardForm set_id={setID} closeForm ={setOpenForm}/>}
                         <div className='set-container'>
                             {cards && cards.map((card) => (
