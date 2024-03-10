@@ -45,7 +45,7 @@ export const SignupPage = () => {
                 className= 'search-box'
                 />
                 
-            <button disabled={isLoading} className='submit-button'>Login</button>
+            <button disabled={isLoading} className='submit-button'>Signup</button>
             {error && <div className="error"> {error} </div>}
         </form>
         </div>
