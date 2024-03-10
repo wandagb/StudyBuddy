@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { useAuthContext } from './hooks/useAuthContext.js';
 
 // General GET fetch
 // pass in URL and receive data
 
 const useFetch = (url) => {
     const [data, setData] = useState([]);
+    const { user } = useAuthContext()
 
     useEffect(() => {
         fetch(url)

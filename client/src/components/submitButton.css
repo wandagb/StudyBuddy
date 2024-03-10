@@ -28,3 +28,21 @@
   .toggle-button:hover {
     background-color: #292670; /* Darker Green */
   }
+
+  .logout-button {
+    background-color: #48459f; 
+    border: none;
+    color: white;
+    padding: 9px 15px; /* This changes the size of the button */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 4px; /* how far it is from search bar */
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .logout-button:hover {
+    background-color: #292670; 
+  }

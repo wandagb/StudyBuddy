@@ -1,54 +1,49 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import "../App.css";
-import useFetch from '../useFetch';
+import { useSetsContext } from '../hooks/useSetsContext.js';
 import FlashSet from "../components/Flashset.js"
+
+import { useAuthContext } from '../hooks/useAuthContext.js';
 
 // Home page, see all sets that user owns
 
 export const Home = () => {
     
-    const [flashSet, setFlashSet] = useState([]);
-    // Hardcoded UserID from database
-    // TODO: figure out how to keep track of user logged in 
-    const userID = "65e256f05ca22e1f4b545aa3"
-  
-    //Using useFetch.js to generalize code
-    const { data: user } = useFetch(`/api/user/${userID}`)
+    const {sets, dispatch} = useSetsContext()
 
-    const sets = user.sets
-    
+    const { user } = useAuthContext()
+  
     // Iterating through user's sets and fetching data 
     // storing in flashSet state
     useEffect(() => {
-        if (sets) {
-            Promise.all(sets.map((item) => fetch(`/api/set/${item}`)))
-                .then((res) => Promise.all(res.map(r => r.json())))
-                .then(results => {setFlashSet(results)})
-                .catch((error) => console.log(error));
-        }
-        }, [sets]);
+        const fetchSets = async () => {
+            const response = await fetch(`/api/items/user-sets`, {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
+            const json = await response.json()
 
-    //Iterates through flashSet and puts into list blocks
-    const listSets = flashSet.map(set =>
-        <FlashSet key={set._id} name={set.name} setID={set._id} />
-        );
+            if(response.ok){
+                dispatch({type: 'GET_USER_SETS', payload: json})
+            }
+        }
+        if (user){
+            fetchSets()
+        }
+        
+        }, [dispatch, user]);
   
     return (
         <>
         <div className='wrapper-main'>
             <div className='section-container'>
-                <h1 className="title">{user.name}'s home</h1>
-                Logged in as {user.username}
-                
-                <div className='section-container'>
-                    Saved Sets:
-                    <div className="set-container">
-                    {listSets}
-                    </div>
+                <h1 className="title"> {user.username}'s home</h1>
+                {sets && sets.map((set) => (
+                    <FlashSet key={set._id} set={set}/>
+                ))}
                 </div>
-                </div>
-                
             </div>
 
         </>

@@ -104,3 +104,9 @@ a {
 .dataItem:hover {
     background-color: #f6f7fb;
 }
+
+.indent{
+    align-items: center;
+    padding: 2px 25px;
+    min-width: 200px;
+}

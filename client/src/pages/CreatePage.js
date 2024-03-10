@@ -1,69 +1,57 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 import "../App.css";
 import '../components/submitButton.css';
 import '../components/create.css';
+import { useSetsContext } from '../hooks/useSetsContext';
 
 
 // Create form, create a new set
 export const SetForm = () => {
-    // TODO: Don't allow duplicate sets for same user
 
-    // const [flashSet, setFlashSet] = useState([]);
+    const { user } = useAuthContext()
+
+    const { dispatch } = useSetsContext()
+
     const [name, setName] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate(); 
 
 
-    // Hardcoded UserID from database
-    const userID = "65e256f05ca22e1f4b545aa3"
-
     const handleSubmit = async (e) =>{
-
         e.preventDefault();
-        
-        const set = {name, userID}
 
-        const createSetResponse = await fetch('/api/set', {
+        if (!user) {
+            setError('You must be logged in')
+            return
+        }
+
+        const set = { name }
+
+        const response = await fetch('/api/items/set', {
             method: 'POST',
             body: JSON.stringify(set),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
-
         });
 
-        const json = await createSetResponse.json();
-
-        if(!createSetResponse.ok){
-            setError(json.error); 
+        const newSet = await response.json();
+        
+        if(!response.ok){
+            setError(newSet.error); 
         }
 
-        if(createSetResponse.ok){
+        if(response.ok){
             setError(null);
-            console.log('New set added!', json);
+            console.log('New set added!', newSet);
             setName('');
-            const id_path = json._id.toString();
-            
-            //add this setID to the users sets
-            const setUserResponse = await fetch(`/api/user/${userID}/set`, {
-                method: 'PATCH',
-                body: JSON.stringify({id: id_path}),
-                headers: {
-                    'Content-Type': 'application/json'
-                }    
-            });
-
-            const addedSetJson = await setUserResponse.json();
-            if(!setUserResponse.ok){
-                console.log("Error adding set to user");
-            }
-            if(setUserResponse.ok){
-                console.log('Added set to user')
-            }
-
+            const id_path = newSet._id
+            dispatch({type: 'CREATE_SET', payload: newSet})
             // route to set that was just created
-            navigate('/set/' + id_path);
+            navigate(`/set/`+id_path);
         }
     }    
     return (

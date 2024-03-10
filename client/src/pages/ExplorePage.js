@@ -1,18 +1,26 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useSetsContext } from '../hooks/useSetsContext.js';
 import "../App.css";
-import useFetch from '../useFetch';
 import FlashSet from "../components/Flashset.js"
 
 export const ExplorePage = () => {
-    
-    const { data: sets } = useFetch(`/api/sets`)
 
-    //Iterates through flashSet and puts into list blocks
-    const listSets = sets.map(set =>
-        <FlashSet key={set._id} name={set.name} setID={set._id} />
-        );
-    
+    const {sets, dispatch} = useSetsContext()
+
+    useEffect(() => {
+        const fetchSets = async () => {
+            const response = await fetch(`/api/items/sets`, {
+            })
+            const json = await response.json()
+
+            if(response.ok){
+                dispatch({type: 'GET_SETS', payload: json})
+            }
+        }
+        fetchSets()
+        
+        }, [dispatch]);
     return (
         <>
         <div className='wrapper-main'>
@@ -21,7 +29,9 @@ export const ExplorePage = () => {
                     <div className='section-container'>
                         <div className='card-container'>
                             <div className="set-container">
-                                {listSets}
+                            {sets && sets.map((set) => (
+                                    <FlashSet key={set._id} set={set}/>
+                                ))}
                             </div>
                         </div>
                     </div>
