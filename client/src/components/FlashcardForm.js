@@ -1,52 +1,46 @@
 import { useState } from 'react'
+import { useAuthContext } from '../hooks/useAuthContext';
+import { useCardsContext } from '../hooks/useCardsContext';
 import '../components/submitButton.css';
 import '../components/create.css';
 
-const FlashcardForm = ({ id, onAddFlashcard, closeForm}) => {
+const FlashcardForm = ({ set_id, onAddFlashcard, closeForm}) => {
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
     const [error, setError] = useState(null)
     const [emptyFields, setEmptyFields] = useState([])
+    const { user } = useAuthContext()
+    const { cardDispatch } = useCardsContext()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const flashcard = {question, answer}
+        const flashcard = {set_id, question, answer}
 
-        const response = await fetch(`/api/flashcard`, {
+        const response = await fetch(`/api/items/flashcard`, {
             method: 'POST',
             body: JSON.stringify(flashcard),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         });
 
         const newFlashcard = await response.json()
 
         if(!response.ok){
+            console.log("bad")
             setError(newFlashcard.error)
             setEmptyFields(newFlashcard.emptyFields)
         }
 
         if (response.ok){
-            const update = await fetch(`/api/set/${id}/flashcard`, {
-                method: 'PATCH',
-                body: JSON.stringify({cardID: newFlashcard._id}),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if(!response.ok){
-                setError(update.error)
-            }
-            if(response.ok){
-                onAddFlashcard(newFlashcard);
-                setAnswer('')
-                setQuestion('')
-                setError(null)
-                setEmptyFields([])
-        }
+            console.log("good")
+            setAnswer('')
+            setQuestion('')
+            setError(null)
+            setEmptyFields([])
+            cardDispatch({type: 'CREATE_CARD', payload: newFlashcard})
         }
     }
     return ( 

@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const router  = require('./routes/router')
+const flashcardRoutes  = require('./routes/router')
+const userRoutes = require('./routes/user')
 const mongoose = require('mongoose')
 require('dotenv/config')
 
@@ -9,6 +10,8 @@ require('dotenv/config')
 
 const app = express()
 
+//middleware
+app.use(express.json())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 
@@ -19,7 +22,8 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
-app.use('/', router)
+app.use('/api/items', flashcardRoutes)
+app.use('/api/user', userRoutes)
 
 const dbOptions = {useNewUrlParser:true, useUnifiedTopology:true}
 

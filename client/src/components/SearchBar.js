@@ -4,7 +4,7 @@ import useFetch from '../useFetch'
 
 export default function SearchBar() {
     const [filteredData, setFilteredData] = useState([])
-    const { data: sets } = useFetch(`/api/sets`)
+    const { data: sets } = useFetch(`/api/items/sets`)
 
     // Handle when user types
     const handleFilter = (event) => {

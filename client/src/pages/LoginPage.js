@@ -1,55 +1,49 @@
-import "../App.css";
-
-import {useState, useEffect} from 'react';
-import {jwtDecode} from "jwt-decode";
+import { useState} from "react"
+import { useLogin } from "../hooks/useLogin"
+import '../components/Login.css'
 
 export const LoginPage = () => {
-    const [user, setUser] = useState({});
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const {login, error, isLoading} = useLogin()
+    
 
-    function handleCallbackResponse(response) {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
 
-        console.log("Encoded JWT ID token: " + response.credential);
-        var userObject = jwtDecode(response.credential);
-        console.log(userObject)
-        setUser(userObject);
-        document.getElementById("signInDiv").hidden = true;
+        await login(username, password)
     }
 
-    function handleSignOut(event){
-        setUser({});
-        document.getElementById("signInDiv").hidden = false;
-    }
-
-    useEffect(() => {
-        /* global google */
-        google.accounts.id.initialize({
-            client_id: "360602520506-j5et35bhqgd81ssr17fkth5gplr10sse.apps.googleusercontent.com",
-            callback: handleCallbackResponse
-        });
-
-        google.accounts.id.renderButton(
-            document.getElementById("signInDiv"),
-            {theme: "outline", size: "medium"}
-            );
+    return (
+        <div className='form-container'>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
         
-        google.accounts.id.prompt();
-            
-        },[]);
+            <form className="Create" onSubmit={handleSubmit}>
+            <h3>User Login</h3>
+            <label>Username:</label>
+            <input
+                type="text"
+                onChange={(e) => setUsername(e.target.value)}
+                value={username}
+                className = 'search-box'
+                />
 
-        //Will check if user is signed in to output sign out button
-        return (
-            <div className="log">
-                <div id="signInDiv"></div>
-                {
-                    Object.keys(user).length !== 0 && (
-                    <button onClick={ (e) => handleSignOut(e)}>Sign Out</button>
-                )}
-                { user && 
-                    <div>
-                        <img src={user.picture}alt=""></img>
-                        <h3>{user.name}</h3>
-                        <h4>{user.email}</h4>
-                    </div>
-                }
-                </div>
-        )}
+            <label>Password:</label>
+            <input
+                type="text"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                className = 'search-box'
+                />
+            <button disabled={isLoading} className='submit-button'>Login</button>
+            {error && <div className="error"> {error} </div>}
+        </form>
+        
+        <div className="link-container">
+            <p>Don't have an account?</p>
+            <a href="/SignUp" className="signup-link">Sign up</a>
+        </div>
+
+        </div>
+    )
+}
