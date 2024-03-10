@@ -45,13 +45,10 @@ const Navbar = () => {
                     <a className ="navbar__link"href="/explore">Explore</a>
                 </li>
             </ul>
-            {user ? (
             <div className='search'>
                 <SearchBar />
             </div>
-            ) :
-                <div className ="indent"/>            
-            }
+          
             {user &&
                 (<div>
                     <button className="logout-button" onClick={handleClick}>Log out</button>
