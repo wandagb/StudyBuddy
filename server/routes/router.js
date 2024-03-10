@@ -131,8 +131,6 @@ router.post("/flashcard", async (req, res) => {
     }
 });
 
-<<<<<<< Updated upstream
-=======
 // router.delete('/set/:id/flashcard', async (req, res) => {
 //     // Find specific card
 //     const { id } = req.params;
@@ -186,5 +184,4 @@ router.delete('/set/:id/flashcard', async (req, res) => {
     }
 });
 
->>>>>>> Stashed changes
 module.exports = router

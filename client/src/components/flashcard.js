@@ -1,17 +1,5 @@
 import React from "react";
 import "./Flashcard.css";
-<<<<<<< Updated upstream
-
-export default function Card(props) {
-    const [isFront, changeFace] = React.useState(true);
-    function handleClick() {
-        changeFace(oldState => !oldState);
-    }
-    
-    const text = isFront ? props.frontSide :props.backSide;
-    const sideClass = isFront ? "front" : "back";
-    const classList = `flash-card ${sideClass}`;
-=======
 import { useCardsContext } from '../hooks/useCardsContext';
 import { useAuthContext } from "../hooks/useAuthContext";
 import { FlashcardSetPage } from "../pages/FlashSet"; 
@@ -45,10 +33,10 @@ export default function Card(props) {
      const sideClass = isFront ? "front" : "back";
      const classList = `flash-card ${sideClass}`;
     
->>>>>>> Stashed changes
     return (
         <div className={classList} onClick={handleClick}>
             {text}
+            <button onClick={handleClick}>X</button>
         </div>
     );
 }
