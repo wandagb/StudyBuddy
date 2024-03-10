@@ -19,7 +19,7 @@ export const FlashcardSetPage = () => {
                     const response = await fetch(`/api/flashcard/${cardID}`);
                     const data = await response.json();
                     return data;
-                }));
+                }));    
                 setFlashcards(fetchedFlashcards);
             }
         };
@@ -62,7 +62,7 @@ export const FlashcardSetPage = () => {
                     >
                         +
                     </button>
-                    {openFeedback && <RatingComponent closeForm ={setOpenFeedback}/>}
+                    {openFeedback && <RatingComponent closeFeedback ={setOpenFeedback} setID={ setID }/>}
                 </div>
             </div>
         </>

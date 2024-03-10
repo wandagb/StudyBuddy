@@ -3,22 +3,20 @@ import { FaStar } from 'react-icons/fa';
 import "../App.css"
 import "../components/ratingPage.css";
 import "../components/submitButton.css"
-import RateBar from '../components/RateBar';
 
-export default function RatingComponent({closeForm}) {
+export default function RatingComponent({closeFeedback, setID}) {
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
-    const [flashcardSetName, setFlashcardSetName] = useState("");
 
     useEffect(() => {
         fetchComments();
-    }, []);
+    }); 
 
     const fetchComments = async () => {
         try {
-            const response = await fetch('/api/comments');
+            const response = await fetch('/api/comments/' + setID);
             if (!response.ok) {
                 throw new Error('Failed to fetch comments');
             }
@@ -42,7 +40,7 @@ export default function RatingComponent({closeForm}) {
         const combinedFeedback = "Rating: " + rating + " stars\nComment: " + comment;
 
         try {
-            const response = await fetch('/api/feedback', {
+            const response = await fetch(`/api/feedback/${setID}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -57,7 +55,7 @@ export default function RatingComponent({closeForm}) {
             alert('Feedback submitted successfully');
             setComment("");
             setRating(null);
-            setComments([...comments, combinedFeedback])
+            fetchComments();
         } catch (error) {
             console.error('Error submitting feedback:', error);
             alert('Failed to submit feedback. Please try again.');
@@ -65,7 +63,7 @@ export default function RatingComponent({closeForm}) {
     };
     return (
         <div className="star-rating-container">
-            <button className="toggle-button" onClick ={() => closeForm(false)}>X</button>
+            <button className="toggle-button" onClick ={() => closeFeedback(false)}>X</button>
             <h1 className='title'>Leave some Feedback!</h1>
             <div className="star-array">
             {[...Array(5)].map((star, index) => {
@@ -93,11 +91,11 @@ export default function RatingComponent({closeForm}) {
             
             <textarea value={comment} onChange={onChangeHandler} placeholder="Enter your comment here..."className='comment-box'/>
             
-            <h1>Your rating is {rating}</h1>
-            <button className="submit-button">Submit</button>
+            <button className="submit-button" onClick={onClickHandler}>Submit</button>
+            <h1>Comments for this set:</h1>
             <div className="comment-arr">
             {comments.map((comment) => (
-                <div className='show-comments'><pre>{comment.combinedFeedback}</pre></div>
+                <div className='show-comments'><pre>{comment}</pre></div>
             ))}
             </div>
             </div>

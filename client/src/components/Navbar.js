@@ -16,9 +16,6 @@ const Navbar = () => {
                 <li>
                     <a className ="navbar__link"href="/explore">Explore</a>
                 </li>
-                <li>
-                    <a className ="navbar__link"href="/rate">Feedback</a>
-                </li>
             </ul>
             <div className='search'>
             <SearchBar />
