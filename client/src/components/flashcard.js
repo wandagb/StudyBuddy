@@ -7,7 +7,8 @@ import { FlashcardSetPage } from "../pages/FlashSet";
 export default function Card(props) {
     const [isFront, changeFace] = React.useState(true);
 
-    const { card_id } = props.card_id
+    const  card_id  = props.card_id
+    const { user } = useAuthContext()
 
     const { cardDispatch} = useCardsContext();
 
@@ -18,8 +19,11 @@ export default function Card(props) {
 
         console.log(props.card_id)
 
-        const response = await fetch('/api/items/flashcard' + card_id, {
-            method: 'DELETE'
+        const response = await fetch('/api/items/flashcard/' + card_id, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
         });
 
         const json = await response.json()
