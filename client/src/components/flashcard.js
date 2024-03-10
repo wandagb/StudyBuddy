@@ -36,7 +36,7 @@ export default function Card(props) {
     return (
         <div className={classList} onClick={handleClick}>
             {text}
-            <button onClick={handleClick}>X</button>
+            <button onClick={handleDelete}>X</button>
         </div>
     );
 }
