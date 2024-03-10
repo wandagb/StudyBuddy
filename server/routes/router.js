@@ -194,24 +194,54 @@
         }
     });
 
-    //Add feedback string to db
-    router.post("/api/feedback", async (req, res) => {
+    //Add feedback string to db and rating
+    router.post("/api/feedback/:setID", async (req, res) => {
         try{
-            const { combinedFeedback } = req.body;
-            const feedback = new schemas.feedback({combinedFeedback});
-            await feedback.save();
-            res.status(201).json({ message: 'Feedback submitted successfully' });
+            const { setID } = req.params;
+            const { combinedFeedback, rating } = req.body;
+            const flashset = schemas.flashsets;
+
+            const updatedSet = await flashset.findByIdAndUpdate(setID, { 
+                $push: { 
+                    comments: combinedFeedback,
+                    ratings: rating
+                }, 
+            }, {new: true});
+
+
+
+            if (!updatedSet) {
+                return res.status(404).json({ error: 'Flashcard set not found' });
+            }    
+
+            const averageRating = updatedSet.ratings.reduce((total, num) => total + num, 0) / updatedSet.ratings.length;
+            updatedSet.averageRating = averageRating;
+            await updatedSet.save();
+
+
+            res.json(updatedSet);
         } catch(error){
             console.error("Error saving feedback:", error)
             res.status(500).json({ error: 'An error occurred while saving feedback'})
         }
     }); 
-
-    router.get("/api/comments", async (req, res) => {
+// Find the flashset by ID and return its comments
+    router.get("/api/comments/:setID", async (req, res) => {
         try {
-            const Feedback = schemas.feedback;
-            const comments = await Feedback.find();
-            res.status(200).json({ comments }); 
+            const { setID } = req.params;
+            
+            const flashset = schemas.flashsets;
+            const set = await flashset.findById(setID);
+    
+            if (!set) {
+                return res.status(404).json({ error: 'Flashcard set not found' });
+            }
+
+            average = set.averageRating
+            average = average.toFixed(2)
+    
+            res.status(200).json({ comments: set.comments, averageRating: average });
+    
         } catch (error) {
             console.error("Error fetching comments:", error);
             res.status(500).json({ error: 'An error occurred while fetching comments' });

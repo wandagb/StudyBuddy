@@ -17,6 +17,9 @@ const flashcardSetSchema = new Schema({
     id: {type:Number},
     name: {type:String, required:true},
     cards: [String],
+    comments: [String],
+    ratings: [Number],
+    averageRating: {type: Number},
     owner: {type:String}
 })
 
@@ -30,7 +33,8 @@ const flashcardSchema = new Schema({
 
 //comments
 const flashcardComments = new Schema({
-    combinedFeedback: {type:String}
+    combinedFeedback: {type:String},
+    set: {type:String}
 })
 
 // Exporting models
