@@ -9,6 +9,8 @@ export default function RatingComponent({closeFeedback, setID}) {
     const [hover, setHover] = useState(null);
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
+    const [averageRating, setAverageRating] = useState(null);
+
 
     useEffect(() => {
         fetchComments();
@@ -22,11 +24,11 @@ export default function RatingComponent({closeFeedback, setID}) {
             }
             const data = await response.json();
             setComments(data.comments);
+            setAverageRating(data.averageRating);
         } catch (error) {
             console.error('Error fetching comments:', error);
         }
     };
-
 
     const onChangeHandler = (e) => {
         setComment(e.target.value)
@@ -45,7 +47,7 @@ export default function RatingComponent({closeFeedback, setID}) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ combinedFeedback }),
+                body: JSON.stringify({ combinedFeedback, rating }),
             });
 
             if (!response.ok) {
@@ -65,6 +67,7 @@ export default function RatingComponent({closeFeedback, setID}) {
         <div className="star-rating-container">
             <button className="toggle-button" onClick ={() => closeFeedback(false)}>X</button>
             <h1 className='title'>Leave some Feedback!</h1>
+            <h3>Average Rating: <pre>{ averageRating }</pre></h3>
             <div className="star-array">
             {[...Array(5)].map((star, index) => {
                 const currentRating = index + 1;
