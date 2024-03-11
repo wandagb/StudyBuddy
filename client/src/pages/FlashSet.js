@@ -13,7 +13,6 @@ export const FlashcardSetPage = () => {
     const [openForm, setOpenForm] = useState(false);
     const {cards, cardDispatch} = useCardsContext()
     const {sets, dispatch } = useSetsContext()
-    const {setName, setSetName} = useState()
     const [openFeedback, setOpenFeedback] = useState(false);
     
     useEffect(() => {
@@ -51,7 +50,7 @@ export const FlashcardSetPage = () => {
                 <h1 className="title">{sets?.name}</h1>
                 <h2 className="title">@{sets?.owner}</h2>
                     <div className='section-container'>
-                    {user && <button className='toggle-button'
+                    {user?.username === sets.owner && <button className='toggle-button'
                     onClick={() => {
                         setOpenForm(true);
                     }}
@@ -61,7 +60,7 @@ export const FlashcardSetPage = () => {
                     {openForm && <FlashcardForm set_id={setID} closeForm ={setOpenForm}/>}
                         <div className='set-container'>
                             {cards && cards.map((card) => (
-                                <Card key={card._id} frontSide={card.question} backSide={card.answer} />
+                                <Card key={card._id} card_id = {card._id} frontSide={card.question} backSide={card.answer} closeForm ={openForm}/>
                             ))}
                         </div>
                     </div>

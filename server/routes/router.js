@@ -131,6 +131,29 @@ router.post("/flashcard", async (req, res) => {
         }
 });
 
+router.delete('/flashcard/:id', async (req, res) => {
+    // Find specific card
+    const { id } = req.params;
+    const flashcards = schemas.flashcards;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: `Card ${id} not found.` });
+    }
+
+    try {
+        // Delete the card
+        const deleteCard = await flashcards.findOneAndDelete({ _id: id });
+
+        if (!deleteCard) {
+            return res.status(400).json({ error: `Could not delete card.` });
+        }
+
+        res.status(200).json(deleteCard);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 //Add feedback string to db and rating
 router.post("/feedback/:setID", async (req, res) => {
     try{

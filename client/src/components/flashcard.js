@@ -1,18 +1,49 @@
 import React from "react";
 import "./Flashcard.css";
+import { useCardsContext } from '../hooks/useCardsContext';
+import { useAuthContext } from "../hooks/useAuthContext";
+import {useState} from "react"
+import { FlashcardSetPage } from "../pages/FlashSet"; 
 
-export default function Card(props) {
-    const [isFront, changeFace] = React.useState(true);
-    function handleClick() {
-        changeFace(oldState => !oldState);
+export default function Card({ card_id, closeForm, frontSide, backSide }) {
+    const [isFlipped, setIsFlipped] = useState(false);
+
+    const { user } = useAuthContext();
+    const { cardDispatch } = useCardsContext();
+
+    const handleClick = () => {
+        setIsFlipped(!isFlipped);
     }
-    
-    const text = isFront ? props.frontSide :props.backSide;
-    const sideClass = isFront ? "front" : "back";
-    const classList = `flash-card ${sideClass}`;
+
+    const handleDelete = async (e) => {
+
+        const response = await fetch('/api/items/flashcard/' + card_id, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            },
+        });
+
+        if (response.ok) {
+            const json = await response.json();
+            cardDispatch({type: 'DELETE_CARD', payload: json});
+        }
+    };
+
     return (
-        <div className={classList} onClick={handleClick}>
-            {text}
+        <div className="flash-card-container" onClick={handleClick}>
+            <div 
+              className="flash-card" 
+              style={{transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)"}}>
+                <div className="flash-card-front">
+                    {frontSide}
+                    {closeForm && <button onClick={handleDelete}>X</button>}
+                </div>
+                <div className="flash-card-back">
+                    {backSide}
+                    {closeForm && <button onClick={handleDelete}>X</button>}
+                </div>
+            </div>
         </div>
     );
 }

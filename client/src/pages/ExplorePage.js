@@ -5,7 +5,6 @@ import "../App.css";
 import FlashSet from "../components/Flashset.js"
 
 export const ExplorePage = () => {
-
     const {sets, dispatch} = useSetsContext()
 
     useEffect(() => {
