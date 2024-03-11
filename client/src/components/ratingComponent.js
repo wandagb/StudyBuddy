@@ -3,6 +3,8 @@ import { FaStar } from 'react-icons/fa';
 import "../App.css"
 import "../components/ratingPage.css";
 import "../components/submitButton.css"
+import { useAuthContext } from '../hooks/useAuthContext';
+import { useFeedbackContext } from '../hooks/useFeedbackContext';
 
 export default function RatingComponent({closeFeedback, setID}) {
     const [rating, setRating] = useState(null);
@@ -10,6 +12,8 @@ export default function RatingComponent({closeFeedback, setID}) {
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
     const [averageRating, setAverageRating] = useState(null);
+    const { user } = useAuthContext()
+    const { dispatch } = useFeedbackContext()
 
 
     useEffect(() => {
@@ -18,22 +22,35 @@ export default function RatingComponent({closeFeedback, setID}) {
 
     const fetchComments = async () => {
         try {
-            const response = await fetch('/api/comments/' + setID);
+            const response = await fetch(`/api/items/comment`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            });
             if (!response.ok) {
                 throw new Error('Failed to fetch comments');
             }
             const data = await response.json();
             setComments(data.comments);
             setAverageRating(data.averageRating);
+            dispatch({type: 'GET_COMMENTS', payload: data.comments});
+            dispatch({type: 'GET_AVERAGE', payload: data.averageRating});
         } catch (error) {
             console.error('Error fetching comments:', error);
         }
     };
 
+
+
     const onChangeHandler = (e) => {
         setComment(e.target.value)
     };
     const onClickHandler = async () => {
+        if (!user) {
+            alert('You must be logged in')
+            return
+        }
         if (rating === null) {
             alert("Please select a rating before submitting.");
             return;
@@ -42,10 +59,11 @@ export default function RatingComponent({closeFeedback, setID}) {
         const combinedFeedback = "Rating: " + rating + " stars\nComment: " + comment;
 
         try {
-            const response = await fetch(`/api/feedback/${setID}`, {
+            const response = await fetch(`/api/items/feedback/${setID}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 },
                 body: JSON.stringify({ combinedFeedback, rating }),
             });
@@ -57,6 +75,7 @@ export default function RatingComponent({closeFeedback, setID}) {
             alert('Feedback submitted successfully');
             setComment("");
             setRating(null);
+            //dispatch({type: 'CREATE_COMMENT', payload: combinedFeedback})
             fetchComments();
         } catch (error) {
             console.error('Error submitting feedback:', error);

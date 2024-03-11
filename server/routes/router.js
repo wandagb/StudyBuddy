@@ -132,7 +132,7 @@ router.post("/flashcard", async (req, res) => {
     });
 
     //Add feedback string to db and rating
-    router.post("/api/feedback/:setID", async (req, res) => {
+    router.post("/feedback/:setID", async (req, res) => {
         try{
             const { setID } = req.params;
             const { combinedFeedback, rating } = req.body;
@@ -163,7 +163,7 @@ router.post("/flashcard", async (req, res) => {
         }
     }); 
 // Find the flashset by ID and return its comments
-    router.get("/api/comments/:setID", async (req, res) => {
+    router.get("/comments/:setID", async (req, res) => {
         try {
             const { setID } = req.params;
             
