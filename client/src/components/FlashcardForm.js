@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useCardsContext } from '../hooks/useCardsContext';
-import '../components/submitButton.css';
-import '../components/create.css';
+import '../components/styling/submitButton.css';
+import '../components/styling/create.css';
 
 const FlashcardForm = ({ set_id, onAddFlashcard, closeForm}) => {
     const [question, setQuestion] = useState('')

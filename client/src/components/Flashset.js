@@ -1,5 +1,5 @@
 import React from "react";
-import "./Flashset.css";
+import "./styling/Flashset.css";
 import { useNavigate } from 'react-router-dom'
 
 // Sample Set Card

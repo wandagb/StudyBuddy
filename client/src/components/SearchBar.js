@@ -1,4 +1,4 @@
-import './Navbar.css'
+import './styling/Navbar.css'
 import { useState } from 'react'
 import useFetch from '../useFetch'
 
