@@ -12,7 +12,7 @@
   transform-style: preserve-3d;
   cursor: pointer;
   transition: transform 0.8s;
-  transform-origin: 95px;
+  transform-origin: 95px; /* Width and transform-origin are hardcoded so that the cards consistently flip over their centers*/
 }
 
 .flash-card-front, .flash-card-back {
