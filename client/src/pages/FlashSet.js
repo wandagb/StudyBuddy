@@ -12,7 +12,6 @@ export const FlashcardSetPage = () => {
     const [openForm, setOpenForm] = useState(false);
     const {cards, cardDispatch} = useCardsContext()
     const {sets, dispatch } = useSetsContext()
-    const {setName, setSetName} = useState()
 
     useEffect(() => {
         const fetchSet = async () => {
