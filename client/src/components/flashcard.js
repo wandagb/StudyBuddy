@@ -5,7 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import {useState} from "react"
 import { FlashcardSetPage } from "../pages/FlashSet"; 
 
-export default function Card({ card_id, frontSide, backSide }) {
+export default function Card({ card_id, closeForm, frontSide, backSide }) {
     const [isFlipped, setIsFlipped] = useState(false);
 
     const { user } = useAuthContext();
@@ -37,11 +37,11 @@ export default function Card({ card_id, frontSide, backSide }) {
               style={{transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)"}}>
                 <div className="flash-card-front">
                     {frontSide}
-                    <button onClick={handleDelete}>X</button>
+                    {closeForm && <button onClick={handleDelete}>X</button>}
                 </div>
                 <div className="flash-card-back">
                     {backSide}
-                    <button onClick={handleDelete}>X</button>
+                    {closeForm && <button onClick={handleDelete}>X</button>}
                 </div>
             </div>
         </div>
