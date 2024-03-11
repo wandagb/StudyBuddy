@@ -131,6 +131,7 @@ router.post("/flashcard", async (req, res) => {
     }
 });
 
+//Delete flashcard from set
 router.delete('/flashcard/:id', async (req, res) => {
     // Find specific card
     const { id } = req.params;
@@ -149,6 +150,30 @@ router.delete('/flashcard/:id', async (req, res) => {
         }
 
         res.status(200).json(deleteCard);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+//Delete flashcard set from user's sets
+router.delete('/set/:id', async (req, res) => {
+    // Find specific set
+    const { set_id } = req.params;
+    const flashsets = schemas.flashsets;
+
+    if (!mongoose.Types.ObjectId.isValid(set_id)) {
+        return res.status(404).json({ error: `Set ${set_id} not found.` });
+    }
+
+    try {
+        // Delete the card
+        const deleteSet = await flashsets.findOneAndDelete({ _id: set_id });
+
+        if (!deleteSet) {
+            return res.status(400).json({ error: `Could not delete set.` });
+        }
+
+        res.status(200).json(deleteSet);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
