@@ -158,16 +158,16 @@ router.delete('/flashcard/:id', async (req, res) => {
 //Delete flashcard set from user's sets
 router.delete('/set/:id', async (req, res) => {
     // Find specific set
-    const { set_id } = req.params;
+    const { id } = req.params;
     const flashsets = schemas.flashsets;
 
-    if (!mongoose.Types.ObjectId.isValid(set_id)) {
-        return res.status(404).json({ error: `Set ${set_id} not found.` });
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: `Set ${id} not found.` });
     }
 
     try {
-        // Delete the card
-        const deleteSet = await flashsets.findOneAndDelete({ _id: set_id });
+        // Delete the set
+        const deleteSet = await flashsets.findOneAndDelete({ _id: id });
 
         if (!deleteSet) {
             return res.status(400).json({ error: `Could not delete set.` });

@@ -34,11 +34,11 @@ export const FlashcardSetPage = () => {
             if(response.ok){
                 cardDispatch({type: 'GET_CARDS', payload: json})
             }
-        }
-       
-        fetchSet()
-        fetchCards()
-        
+        }    
+        fetchSet();
+        fetchCards();
+        console.log("Hu");   
+
         }, [dispatch, cardDispatch, setID, user]);
 
 
@@ -49,7 +49,7 @@ export const FlashcardSetPage = () => {
                 <h1 className="title">{sets?.name}</h1>
                 <h2 className="title">@{sets?.owner}</h2>
                     <div className='section-container'>
-                    {user?.username === sets.owner && <button className='toggle-button'
+                    {user?.username === sets?.owner && <button className='toggle-button'
                     onClick={() => {
                         setOpenForm(true);
                     }}

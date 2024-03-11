@@ -6,7 +6,7 @@ import { useSetsContext } from "../hooks/useSetsContext";
 
 // Sample Set Card
 
-const FlashSet = ({set}) => {
+const FlashSet = ({set, isHomePage}) => {
     const navigate = useNavigate()
     const setName = set.name
     const setID = set._id
@@ -18,10 +18,10 @@ const FlashSet = ({set}) => {
         navigate(`/set/${setID}`)
     }
 
-    const handleDelete = async (setID) => {
-        console.log(setID)
+    const handleDelete = async () => {
+        console.log(set._id)
 
-        const response = await fetch('/api/items/set/' + setID, {
+        const response = await fetch(`/api/items/set/${set._id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${user.token}`
@@ -30,18 +30,28 @@ const FlashSet = ({set}) => {
 
         if (response.ok) {
             const json = await response.json();
+            console.log(json)
             dispatch({type: 'DELETE_SET', payload: json});
+            console.log(json)
         }
+
     };
 
     return (
+        <div>
             <div className="set-card" onClick={handleClick}>
                 <div className="set__data">
                     <span className="set__name">{setName}</span>
                     <span className="set__name">@{owner}</span>
                 </div>
-                <button onClick={handleDelete}>X</button>
             </div>
+            
+            {isHomePage && (
+                <div className="delete-card">
+                    <button onClick={handleDelete}>X</button>
+                </div>
+            )}
+        </div>
     );
 }
 
