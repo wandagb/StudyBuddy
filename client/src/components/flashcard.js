@@ -40,7 +40,7 @@ export default function Card(props) {
     return (
         <div className={classList} onClick={handleClick}>
             {text}
-            <button onClick={handleDelete}>X</button>
+            {props.closeForm && <button onClick={handleDelete}>X</button>}
         </div>
     );
 }
