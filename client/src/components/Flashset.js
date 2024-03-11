@@ -38,19 +38,22 @@ const FlashSet = ({set, isHomePage}) => {
     };
 
     return (
-        <div>
+        <div className="flashset-container">
             <div className="set-card" onClick={handleClick}>
                 <div className="set__data">
                     <span className="set__name">{setName}</span>
                     <span className="set__name">@{owner}</span>
                 </div>
+                
+                {isHomePage && (
+                    <div className="delete-card" onClick={(e) => {
+                        e.stopPropagation(); // Stop the click event from propagating
+                        handleDelete();
+                    }}>
+                        <button>X</button>
+                    </div>
+                )}
             </div>
-            
-            {isHomePage && (
-                <div className="delete-card">
-                    <button onClick={handleDelete}>X</button>
-                </div>
-            )}
         </div>
     );
 }
