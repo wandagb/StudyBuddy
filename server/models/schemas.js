@@ -7,10 +7,15 @@ const Schema = mongoose.Schema
 const flashcardSetSchema = new Schema({
     name: {type:String, required:true},
     cards: [String],
-    comments: [String],
     ratings: [Number],
     averageRating: {type: Number},
-    owner: {type:String}
+    owner: {type:String},
+    comments: [
+        {
+            text: {type:String},
+            poster: {type:String}
+        }
+    ]
 })
 
 // Indiviual flashcards
@@ -20,16 +25,10 @@ const flashcardSchema = new Schema({
     answer: {type:String, required:true}
 })
 
-//comments
-const flashcardComments = new Schema({
-    combinedFeedback: {type:String},
-    set: {type:String}
-})
 
 // Exporting models
 const Flashcards = mongoose.model('flashcards', flashcardSchema)
 const Flashsets = mongoose.model('flashsets', flashcardSetSchema)
-const Feedback = mongoose.model('feedback', flashcardComments)
-const mySchemas = {'flashcards':Flashcards, 'flashsets':Flashsets, 'feedback':Feedback}
+const mySchemas = {'flashcards':Flashcards, 'flashsets':Flashsets}
 
 module.exports = mySchemas
