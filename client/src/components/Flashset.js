@@ -1,5 +1,5 @@
 import React from "react";
-import "./Flashset.css";
+import "./styling/Flashset.css";
 import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useSetsContext } from "../hooks/useSetsContext";
