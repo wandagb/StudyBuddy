@@ -154,37 +154,25 @@ router.delete('/flashcard/:id', async (req, res) => {
     }
 });
 
-//Add feedback string to db and rating
-router.post("/feedback/:setID", async (req, res) => {
-    try{
-        const { setID } = req.params;
-        const { combinedFeedback, rating } = req.body;
-        const flashset = schemas.flashsets;
-
-        const updatedSet = await flashset.findByIdAndUpdate(setID, { 
-            $push: { 
-                comments: combinedFeedback,
-                ratings: rating
-            }, 
-        }, {new: true});
-
-
-
-        if (!updatedSet) {
-            return res.status(404).json({ error: 'Flashcard set not found' });
-        }    
-
-        const averageRating = updatedSet.ratings.reduce((total, num) => total + num, 0) / updatedSet.ratings.length;
-        updatedSet.averageRating = averageRating;
-        await updatedSet.save();
-
-
-        res.json(updatedSet);
-    } catch(error){
-        console.error("Error saving feedback:", error)
-        res.status(500).json({ error: 'An error occurred while saving feedback'})
+//Add comment to set
+router.post("/set/:setID/comment", async (req, res) => {
+    const { setID } = req.params;
+    const { text } = req.body;
+    const flashset = schemas.flashsets;
+    if(!text){
+        return res.status(400).json({error: 'Please fill in all fields'})
     }
-}); 
+    const updatedSet = await flashset.findOneAndUpdate(
+        {_id: setID},
+        { $push: {comments: {text: text, poster: req.username.username}}},
+        {new: true});
+
+    if (!updatedSet) {
+        return res.status(404).json({ error: 'Flashcard set not found' });
+    }    
+    
+    res.status(200).json(updatedSet)
+});
 
 
 module.exports = router

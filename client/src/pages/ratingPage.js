@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaStar } from 'react-icons/fa';
 import "../App.css"
 import "../components/ratingPage.css";
-import "../components/submitButton.css"
+import "../components/styling/submitButton.css"
 import RateBar from '../components/RateBar';
 import RatingComponent from '../components/ratingComponent';
 
@@ -30,7 +30,6 @@ export const RatingPage = () => {
             console.error('Error fetching comments:', error);
         }
     };
-
 
     const onChangeHandler = (e) => {
         setComment(e.target.value)
