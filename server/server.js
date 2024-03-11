@@ -25,10 +25,8 @@ app.use(cors(corsOptions))
 app.use('/api/items', flashcardRoutes)
 app.use('/api/user', userRoutes)
 
-const dbOptions = {useNewUrlParser:true, useUnifiedTopology:true}
-
 // Connect to MongoDB
-mongoose.connect(process.env.DB_URI, dbOptions)
+mongoose.connect(process.env.DB_URI)
 .then(() => console.log('DB connected!'))
 .catch(err => console.log(err))
 
