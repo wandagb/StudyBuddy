@@ -1,6 +1,6 @@
 import { useState} from "react"
 import { useLogin } from "../hooks/useLogin"
-import '../components/Login.css'
+import '../components/styling/Login.css'
 
 export const LoginPage = () => {
     const [username, setUsername] = useState('')

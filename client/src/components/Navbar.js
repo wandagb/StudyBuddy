@@ -1,4 +1,4 @@
-import './Navbar.css'
+import './styling/Navbar.css'
 import SearchBar from './SearchBar'
 import { useLogout } from '../hooks/useLogout'
 import { useAuthContext } from '../hooks/useAuthContext'
