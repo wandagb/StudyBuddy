@@ -14,7 +14,7 @@ export const feedbackReducer = (state, action) => {
             }
         case 'CREATE_COMMENT':
             return {
-                feedback: [action.payload, ...state.cards]
+                feedback: [action.payload, ...state.feedback]
             }
         default:
             return state

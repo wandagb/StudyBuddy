@@ -15,7 +15,7 @@ export const FlashcardSetPage = () => {
     const {sets, dispatch } = useSetsContext()
     const {setName, setSetName} = useState()
     const [openFeedback, setOpenFeedback] = useState(false);
-
+    
     useEffect(() => {
         const fetchSet = async () => {
             const response = await fetch(`/api/items/set/${setID}`, {
