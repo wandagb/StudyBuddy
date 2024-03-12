@@ -5,14 +5,42 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import Card from '../components/flashcard'; 
 import FlashcardForm from '../components/FlashcardForm';
 import { useSetsContext } from '../hooks/useSetsContext';
+import Comment from '../components/Comment'
 
 export const FlashcardSetPage = () => {
     const { user } = useAuthContext()
     const { setID } = useParams();
     const [openForm, setOpenForm] = useState(false);
     const {cards, cardDispatch} = useCardsContext()
-    const {sets, dispatch } = useSetsContext()
+    const {sets, comments, dispatch } = useSetsContext()
+    const [comment, setComment] = useState('')
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault()
 
+        const newComment = {text: comment}
+
+        const response = await fetch(`/api/items/set/${setID}/comment`, {
+            method: 'POST',
+            body: JSON.stringify(newComment),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            }
+        });
+
+        const postedComment = await response.json()
+
+        if(!response.ok){
+        }
+
+        if (response.ok){
+            setComment('')
+            dispatch({type: 'ADD_COMMENT', payload: postedComment.comments[postedComment.comments.length-1]})
+            dispatch({type: 'GET_SETS', payload: postedComment})
+        }
+    }
+    
     useEffect(() => {
         const fetchSet = async () => {
             const response = await fetch(`/api/items/set/${setID}`, {
@@ -25,7 +53,6 @@ export const FlashcardSetPage = () => {
         }
 
         const fetchCards = async () => {
-            console.log(setID)
             const response = await fetch(`/api/items/flashcard/${setID}`, {
             })
             const json = await response.json()
@@ -39,8 +66,6 @@ export const FlashcardSetPage = () => {
         console.log("Hu");   
 
         }, [dispatch, cardDispatch, setID, user]);
-
-
     return (
         <>       
             <div className='wrapper-main'>
@@ -62,7 +87,21 @@ export const FlashcardSetPage = () => {
                             ))}
                         </div>
                     </div>
+                    <form className="post-comment" onSubmit={handleSubmit}>
+                        <div>
+                            <textarea 
+                            id="comment-message"
+                            type="text"
+                            onChange={(e) => setComment(e.target.value)}
+                            value={comment} 
+                            rows="4" required></textarea>
+                        </div>
+                        <button className='submit-button'>Post Comment</button>
+                     </form>
                 </div>
+                {comments && comments?.toReversed().map((comment) => (
+                    <Comment text={comment.text} poster={comment.poster}/>
+                ))}
             </div>
         </>
     );

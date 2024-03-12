@@ -42,17 +42,17 @@ router.get("/flashcard/:id", async (req, res) => {
 // Find set with id
 router.get("/set/:id", async (req, res) => {
 
-    const id = req.params.id
+        const id = req.params.id
 
-    const flashset = schemas.flashsets
+        const flashset = schemas.flashsets
 
-    const set = await flashset.findById(id)
-    if(!set) {
-        return res.status(404).json({error: 'No such set'})
-    }
+        const set = await flashset.findById(id)
+        if(!set) {
+            return res.status(404).json({error: 'No such set'})
+        }
 
-    res.status(200).json(set)
-});
+        res.status(200).json(set)
+    });
 
 //Below are routes that are secured ( require authentication )
 router.use(requireAuth)
@@ -63,7 +63,7 @@ router.get("/user-sets", async (req, res) => {
 
     const user_id = req.username.username
 
-    const flashset = schemas.flashsets
+        const flashset = schemas.flashsets
 
     const sets = await flashset.find({owner: user_id})
     if(!sets) {
@@ -104,31 +104,31 @@ router.post("/set", async (req, res) => {
 router.post("/flashcard", async (req, res) => {
     const {set_id, question, answer} = req.body
 
-    let emptyFields = []
+        let emptyFields = []
 
-    if(!question){
-        emptyFields.push('question')
-    }
-    if(!answer){
-        emptyFields.push('answer')
-    }
+        if(!question){
+            emptyFields.push('question')
+        }
+        if(!answer){
+            emptyFields.push('answer')
+        }
 
     const FlashCardData = {set_id: set_id, question: question, answer: answer}
 
-    const newCard = new schemas.flashcards(FlashCardData)
+        const newCard = new schemas.flashcards(FlashCardData)
 
-    try{
-        const saveCard = await newCard.save()
-        res.status(200).json(saveCard)
-    } catch (error) {
+        try{
+            const saveCard = await newCard.save()
+            res.status(200).json(saveCard)
+        } catch (error) {
 
-        if(emptyFields.length > 0){
-            res.status(400).json({error: 'Please fill in all fields', emptyFields})
+            if(emptyFields.length > 0){
+                res.status(400).json({error: 'Please fill in all fields', emptyFields})
+            }
+            else{
+                res.status(400).json({error: error.message})
+            }
         }
-        else{
-            res.status(400).json({error: error.message})
-        }
-    }
 });
 
 //Delete flashcard from set
@@ -178,5 +178,26 @@ router.delete('/set/:id', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+//Add comment to set
+router.post("/set/:setID/comment", async (req, res) => {
+    const { setID } = req.params;
+    const { text } = req.body;
+    const flashset = schemas.flashsets;
+    if(!text){
+        return res.status(400).json({error: 'Please fill in all fields'})
+    }
+    const updatedSet = await flashset.findOneAndUpdate(
+        {_id: setID},
+        { $push: {comments: {text: text, poster: req.username.username}}},
+        {new: true});
+
+    if (!updatedSet) {
+        return res.status(404).json({ error: 'Flashcard set not found' });
+    }    
+    
+    res.status(200).json(updatedSet)
+});
+
 
 module.exports = router
