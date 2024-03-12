@@ -6,7 +6,16 @@ const Schema = mongoose.Schema
 // Sets of flashcards, link to indiviual flashcards
 const flashcardSetSchema = new Schema({
     name: {type:String, required:true},
-    owner: {type:String}
+    cards: [String],
+    ratings: [Number],
+    averageRating: {type: Number},
+    owner: {type:String},
+    comments: [
+        {
+            text: {type:String},
+            poster: {type:String}
+        }
+    ]
 })
 
 // Indiviual flashcards
@@ -15,6 +24,7 @@ const flashcardSchema = new Schema({
     question: {type:String, required:true},
     answer: {type:String, required:true}
 })
+
 
 // Exporting models
 const Flashcards = mongoose.model('flashcards', flashcardSchema)

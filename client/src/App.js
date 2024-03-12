@@ -14,7 +14,7 @@ function App(){
     <Router>
         <Navbar />
         <Routes>
-            <Route path="/create" element= {<SetForm/>  }   />                          
+            <Route path="/create" element= {<SetForm/>  } />                          
             <Route path="/home" element={!user ? <Navigate to="/login"/> : <Home />} />
             <Route path="/explore" element={<ExplorePage />} />
             <Route path="/signup" element={!user ? <SignupPage />: <Navigate to ="/home"/>} />
