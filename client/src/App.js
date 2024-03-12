@@ -7,7 +7,6 @@ import { ExplorePage } from './pages/ExplorePage';
 import { SetForm } from './pages/CreatePage'
 import { useAuthContext } from './hooks/useAuthContext';
 import Navbar from './components/Navbar';
-import { RatingPage } from './pages/ratingPage';
 
 function App(){
     const { user } = useAuthContext()
@@ -15,7 +14,7 @@ function App(){
     <Router>
         <Navbar />
         <Routes>
-            <Route path="/create" element= {<SetForm/>  }   />                          
+            <Route path="/create" element= {<SetForm/>  } />                          
             <Route path="/home" element={!user ? <Navigate to="/login"/> : <Home />} />
             <Route path="/explore" element={<ExplorePage />} />
             <Route path="/signup" element={!user ? <SignupPage />: <Navigate to ="/home"/>} />
