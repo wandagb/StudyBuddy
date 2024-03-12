@@ -17,6 +17,10 @@ export const setsReducer = (state, action) => {
             return {
                 sets: action.payload
             }
+        case 'DELETE_SET':
+            return {
+                sets: state.sets.filter((s) => s._id !== action.payload._id)
+            }
         case 'ADD_COMMENT':
             return {
                 comments: [action.payload, ...state.comments]

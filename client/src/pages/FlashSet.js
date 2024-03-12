@@ -60,11 +60,11 @@ export const FlashcardSetPage = () => {
             if(response.ok){
                 cardDispatch({type: 'GET_CARDS', payload: json})
             }
-        }
-       
-        fetchSet()
-        fetchCards()
-        
+        }    
+        fetchSet();
+        fetchCards();
+        console.log("Hu");   
+
         }, [dispatch, cardDispatch, setID, user]);
     return (
         <>       

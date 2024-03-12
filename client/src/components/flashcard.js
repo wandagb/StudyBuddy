@@ -3,7 +3,6 @@ import "./Flashcard.css";
 import { useCardsContext } from '../hooks/useCardsContext';
 import { useAuthContext } from "../hooks/useAuthContext";
 import {useState} from "react"
-import { FlashcardSetPage } from "../pages/FlashSet"; 
 
 export default function Card({ card_id, closeForm, frontSide, backSide }) {
     const [isFlipped, setIsFlipped] = useState(false);
