@@ -18,6 +18,7 @@
     transition: all 0.2s;
     overflow: hidden;
     margin: 20px;
+    position: relative;
   }
 
   .set__name {
@@ -35,4 +36,18 @@
     width: 27vmin;
     height: 17vmin;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
+  }
+
+  .delete-set-button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: #48459f; 
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: inline-block;
+    font-weight: 900;
   }

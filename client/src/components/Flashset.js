@@ -39,6 +39,7 @@ const FlashSet = ({set, isHomePage}) => {
 
     return (
         <div className="flashset-container">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
             <div className="set-card" onClick={handleClick}>
                 <div className="set__data">
                     <span className="set__name">{setName}</span>
@@ -50,7 +51,9 @@ const FlashSet = ({set, isHomePage}) => {
                         e.stopPropagation(); // Stop the click event from propagating
                         handleDelete();
                     }}>
-                        <button>X</button>
+                     <div className="delete-set-button">
+                        <button className="delete-set-button"><i className="fa fa-close"></i></button>
+                         </div>
                     </div>
                 )}
             </div>
