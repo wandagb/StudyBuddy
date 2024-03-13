@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useCardsContext } from '../hooks/useCardsContext';
-import '../components/submitButton.css';
-import '../components/create.css';
+import '../components/styling/submitButton.css';
+import '../components/styling/create.css';
 
-const FlashcardForm = ({ set_id, onAddFlashcard, closeForm}) => {
+const FlashcardForm = ({ set_id, closeForm}) => {
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
     const [error, setError] = useState(null)
@@ -66,7 +66,6 @@ const FlashcardForm = ({ set_id, onAddFlashcard, closeForm}) => {
                 value={answer}
                 className={emptyFields.includes('answer') ? `error_textbox` : 'search-box'}
                 />
-                
             <button className='submit-button'>Add Flashcard</button>
             {error && <div className="error"> {error} </div>}
         </form>

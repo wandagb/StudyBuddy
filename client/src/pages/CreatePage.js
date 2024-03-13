@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import "../App.css";
-import '../components/submitButton.css';
-import '../components/create.css';
+import '../components/styling/submitButton.css';
+import '../components/styling/create.css';
 import { useSetsContext } from '../hooks/useSetsContext';
 
 
@@ -35,7 +35,7 @@ export const SetForm = () => {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${user.token}`
-            }
+            } 
         });
 
         const newSet = await response.json();

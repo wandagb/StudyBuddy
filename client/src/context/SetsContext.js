@@ -10,11 +10,20 @@ export const setsReducer = (state, action) => {
             }
         case 'GET_SETS':
             return {
-                sets: action.payload
+                sets: action.payload,
+                comments: action.payload.comments
             }
         case 'CREATE_SET':
             return {
                 sets: action.payload
+            }
+        case 'DELETE_SET':
+            return {
+                sets: state.sets.filter((s) => s._id !== action.payload._id)
+            }
+        case 'ADD_COMMENT':
+            return {
+                comments: [action.payload, ...state.comments]
             }
         default:
             return state
@@ -24,7 +33,8 @@ export const setsReducer = (state, action) => {
 export const SetsContextProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(setsReducer, {
-        sets: null
+        sets: null,
+        comments: null
     })
 
     return(

@@ -28,3 +28,22 @@ html, body {
   --primary: #2e3856;
   --error: #e7195a;
 }
+
+.home-sets{
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next row */
+  justify-content: center; 
+}
+
+.home-title {
+  color: var(--primary);
+  background: rgb(218, 235, 254);
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 20px;
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  width: 300px;
+}
