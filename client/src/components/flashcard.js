@@ -10,10 +10,12 @@ export default function Card({ card_id, closeForm, frontSide, backSide }) {
     const { user } = useAuthContext();
     const { cardDispatch } = useCardsContext();
 
+    //flip card to reveal contents
     const handleClick = () => {
         setIsFlipped(!isFlipped);
     }
 
+    //delete flashcard from set by grabbing card id
     const handleDelete = async (e) => {
 
         const response = await fetch('/api/items/flashcard/' + card_id, {

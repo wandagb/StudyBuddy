@@ -14,7 +14,6 @@ const requireAuth = require('../middleware/requireAuth');
 router.get("/sets", async (req, res) => {
 
     const flashset = schemas.flashsets
-
     const set = await flashset.find()
 
     if(!set) {
@@ -27,9 +26,9 @@ router.get("/sets", async (req, res) => {
 
 // Get flashcard from a set
 router.get("/flashcard/:id", async (req, res) => {
+
     const flashcards = schemas.flashcards
     const set_id = req.params.id
-
     const card = await flashcards.find({set_id: set_id})
 
     if(!card) {
@@ -43,10 +42,9 @@ router.get("/flashcard/:id", async (req, res) => {
 router.get("/set/:id", async (req, res) => {
 
         const id = req.params.id
-
         const flashset = schemas.flashsets
-
         const set = await flashset.findById(id)
+
         if(!set) {
             return res.status(404).json({error: 'No such set'})
         }
@@ -62,8 +60,7 @@ router.use(requireAuth)
 router.get("/user-sets", async (req, res) => {
 
     const user_id = req.username.username
-
-        const flashset = schemas.flashsets
+    const flashset = schemas.flashsets
 
     const sets = await flashset.find({owner: user_id})
     if(!sets) {
@@ -77,10 +74,10 @@ router.get("/user-sets", async (req, res) => {
 // Create an empty flashcard set
 // Requires: Name of set
 router.post("/set", async (req, res) => {
-    const {name} = req.body
 
+    const {name} = req.body
     const user_id = req.username.username
-    
+
     const FlashCardData = {name: name, owner: user_id}
     const newSet = new schemas.flashsets(FlashCardData)
     
@@ -95,7 +92,6 @@ router.post("/set", async (req, res) => {
             res.status(400).json({error: error.message})
         }
     }
-    
 });
 
 
@@ -129,6 +125,7 @@ router.post("/flashcard", async (req, res) => {
                 res.status(400).json({error: error.message})
             }
         }
+
 });
 
 //Delete flashcard from set
@@ -166,7 +163,7 @@ router.delete('/set/:id', async (req, res) => {
     }
 
     try {
-        // Delete the set
+        // Delete the set from users sets
         const deleteSet = await flashsets.findOneAndDelete({ _id: id });
 
         if (!deleteSet) {
@@ -181,6 +178,7 @@ router.delete('/set/:id', async (req, res) => {
 
 //Add comment to set
 router.post("/set/:setID/comment", async (req, res) => {
+    //Need set id to comment on
     const { setID } = req.params;
     const { text } = req.body;
     const flashset = schemas.flashsets;
@@ -195,7 +193,6 @@ router.post("/set/:setID/comment", async (req, res) => {
     if (!updatedSet) {
         return res.status(404).json({ error: 'Flashcard set not found' });
     }    
-    
     res.status(200).json(updatedSet)
 });
 
