@@ -3,6 +3,7 @@ import SearchBar from './SearchBar'
 import { useLogout } from '../hooks/useLogout'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useNavigate } from 'react-router-dom';
+import mainLogo from "./styling/logo.png"
 
 
 const Navbar = () => {
@@ -19,8 +20,10 @@ const Navbar = () => {
     return (
         <header className ="header">
             <div className = "navbar"> 
-            <a className ="title" href="/home">FlashCard-App</a>
+            <a className ="title" href="/home">StudyBuddy</a>
+            <img className = "logo" src={mainLogo}></img>
             <ul>     
+
                 {!user && (
                     <li>
                     <a className ="navbar__link" href="/login">Login</a>
