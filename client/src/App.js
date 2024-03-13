@@ -6,6 +6,7 @@ import { FlashcardSetPage } from './pages/FlashSet';
 import { ExplorePage } from './pages/ExplorePage';
 import { SetForm } from './pages/CreatePage'
 import { useAuthContext } from './hooks/useAuthContext';
+import { PageNotFound } from './pages/PageNotFound';
 import Navbar from './components/Navbar';
 
 function App(){
@@ -14,6 +15,11 @@ function App(){
     <Router>
         <Navbar />
         <Routes>
+            <Route exact path="" element={<Home />} />
+                <Route
+                    path="*"
+                    element={<PageNotFound />}
+                />
             <Route path="/create" element= {<SetForm/>  } />                          
             <Route path="/home" element={!user ? <Navigate to="/login"/> : <Home />} />
             <Route path="/explore" element={<ExplorePage />} />

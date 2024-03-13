@@ -43,7 +43,7 @@ a {
     background: rgb(0, 183, 255);
     position: absolute;
     left: 0;
-    bottom: -16px;
+    bottom: -20px;
     opacity: 0;
     transition: all 0.2s;
     pointer-events: none;

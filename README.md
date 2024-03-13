@@ -1,5 +1,5 @@
-# flashcard-app
-Flashcard studying app for CS35L
+# StudyBuddy
+Flashcard studying app
 
 # Running the App
 ## Client
