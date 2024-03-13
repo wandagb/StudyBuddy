@@ -36,13 +36,18 @@ export default function Card({ card_id, closeForm, frontSide, backSide }) {
             <div 
               className="flash-card" 
               style={{transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)"}}>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
                 <div className="flash-card-front">
                     {frontSide}
-                    {closeForm && <button onClick={handleDelete}>X</button>}
+                    <div className="delete-card-button">
+                    {closeForm && <button className="delete-card-button" onClick={handleDelete}><i className="fa fa-close"></i></button>}
+                    </div>
                 </div>
                 <div className="flash-card-back">
                     {backSide}
-                    {closeForm && <button onClick={handleDelete}>X</button>}
+                    <div className="delete-card-button">
+                    {closeForm && <button className="delete-card-button" Click={handleDelete}><i className="fa fa-close"></i></button>}
+                    </div>
                 </div>
             </div>
         </div>

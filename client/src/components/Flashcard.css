@@ -49,3 +49,17 @@
   transform: rotateY(180deg);
   backface-visibility: hidden;
 }
+
+.delete-card-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: #48459f; 
+  border: none;
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: inline-block;
+  font-weight: 900;
+}
