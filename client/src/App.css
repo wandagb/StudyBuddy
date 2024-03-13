@@ -22,11 +22,6 @@ html, body {
   max-width: 1650px;
   margin: auto;
   padding: 30px;
-  text-align: center;
-  display: flex;
-  flex-direction: column; /* Align items vertically */
-  align-items: center; /* Center-align items horizontally */
-
 }
 
 :root {
@@ -41,15 +36,14 @@ html, body {
 }
 
 .home-title {
-  font-size: 2rem;
   color: var(--primary);
   background: rgb(218, 235, 254);
   margin-bottom: 20px;
   text-align: center;
-  text-transform: capitalize;
   padding: 20px;
   border: 2px solid var(--primary);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: inline-block;
+  margin: auto;
+  width: 300px;
 }
