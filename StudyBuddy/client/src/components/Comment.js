@@ -7,7 +7,7 @@ export default function Comment({ text, poster }) {
     <>
         <div className="comment">
                 <div className="comment-data">
-                <div className="comment-poster">@{poster}</div>
+                <div className="comment-poster">👤{poster}:</div>
                 <div className="comment-text">{text}</div>    
                 </div>
             </div>

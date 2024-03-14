@@ -1,0 +1,44 @@
+.comment {
+    width: 500px;
+    min-height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    background: #fff;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    transition: all 0.2s;
+    margin: 20px;
+    overflow: hidden; 
+    word-wrap: break-word; 
+    word-break: break-all; 
+
+
+}
+
+.comment-data {
+    flex-direction: column; 
+    height: 100%; 
+}
+
+.comment-poster {
+    font-size: 1.2em;
+    margin-bottom: 5px; 
+    font-weight: bold; 
+    color: #007bff; 
+}
+
+.comment-text {
+    text-align: left;
+    overflow-wrap: break-word;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding: 5px
+
+}
+
+.comment:hover {
+    cursor: pointer;
+    background-color: #f6f7fb;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
+}
