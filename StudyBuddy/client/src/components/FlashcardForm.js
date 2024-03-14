@@ -4,7 +4,7 @@ import { useCardsContext } from '../hooks/useCardsContext';
 import '../components/styling/submitButton.css';
 import '../components/styling/create.css';
 
-// Form that handles adding a flashcard given set ID
+// Form that handles adding a flashcard given set ID Component
 
 const FlashcardForm = ({ set_id, closeForm}) => {
     const [question, setQuestion] = useState('')
@@ -19,6 +19,7 @@ const FlashcardForm = ({ set_id, closeForm}) => {
 
         const flashcard = {set_id, question, answer}
 
+        //send a new flashcard to the database
         const response = await fetch(`/api/items/flashcard`, {
             method: 'POST',
             body: JSON.stringify(flashcard),
@@ -35,6 +36,7 @@ const FlashcardForm = ({ set_id, closeForm}) => {
             setEmptyFields(newFlashcard.emptyFields)
         }
 
+        //resets the form after a successful submission
         if (response.ok){
             setAnswer('')
             setQuestion('')

@@ -1,7 +1,8 @@
+/* Styling for the login box */
 .form-container{
-    width: 70%; /* Set the width of the form container */
-    max-width: 600px; /* Optionally, set a maximum width to prevent it from becoming too wide */
-    margin: 20px auto; /* Center the form container horizontally */
+    width: 70%;
+    max-width: 600px;
+    margin: 20px auto;
     height: 330px;
     padding: 20px;
     background-color: #f7f7f7;
@@ -16,18 +17,20 @@
 
 .signup-link,
 .info-link {
-    color: #007bff; /* Blue color for links */
+    color: #007bff;
     text-decoration: none; /* Remove underline */
     transition: color 0.3s; /* Smooth transition for color change */
     text-decoration: underline;
 
 }
 
+/* Styling for when you hover over the signup link or info link */
 .signup-link:hover,
 .info-link:hover {
-    color: #0056b3; /* Darker blue color on hover */
+    color: #0056b3;
 }
 
+ /* For space between the links */
 .separator {
-    margin: 0 10px; /* Add space between the links */
+    margin: 0 10px;
 }

@@ -1,7 +1,8 @@
+/* Styling for the create button in the navbar */
 .create-container{
-    width: 70%; /* Set the width of the form container */
-    max-width: 600px; /* Optionally, set a maximum width to prevent it from becoming too wide */
-    margin: 20px auto; /* Center the form container horizontally */
+    width: 70%;
+    max-width: 600px;
+    margin: 20px auto;
     height: 260px;
     padding: 20px;
     background-color: #f7f7f7;
@@ -10,14 +11,15 @@
     transition: all 0.2s;
   }
 
+  /* Styling for when you hover over the create button */
   .create-container:hover {
-    background-color: #f6f7fb; /* Change background color on hover */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.154); /* Change box shadow on hover */
-    transform: scale(1.01); /* Expand a little on hover */
+    background-color: #f6f7fb;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.154);
+    transform: scale(1.01);
   }
   
   .create{
-    width: 100%; /* Make the form fill the entire width of its container */
+    width: 100%;
   }
   
   .error{

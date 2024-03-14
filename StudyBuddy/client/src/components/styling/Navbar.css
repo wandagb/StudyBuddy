@@ -1,3 +1,4 @@
+/* Styling for the navigation bar at the top of the website and the search bar */
 .navbar{
     display: flex;
     align-items: center;
@@ -53,6 +54,7 @@ a {
     opacity: 1;
 }
 
+/* Styling for when you hover over the navbar link */
 .navbar li:hover{
     color: #777;
 }
@@ -61,6 +63,7 @@ a {
     font-size:25px;
 }
 
+/* Styling for the Search bar */
 .search-box{
     display: flex;
     flex-direction: column;
@@ -84,6 +87,7 @@ a {
     max-width: 200px;
 }
 
+/* Styling for the results of the search bar */
 .dataResult {
     margin-top: 2px;
     width: 250px;

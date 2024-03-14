@@ -5,6 +5,7 @@ import { useAuthContext } from '../hooks/useAuthContext'
 import { useNavigate } from 'react-router-dom';
 import mainLogo from "./styling/logo.png"
 
+// Navigation bar component
 
 const Navbar = () => {
     const { logout } = useLogout()

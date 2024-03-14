@@ -4,6 +4,8 @@ import { useCardsContext } from '../hooks/useCardsContext';
 import { useAuthContext } from "../hooks/useAuthContext";
 import {useState} from "react"
 
+//Flashcard component
+
 export default function Card({ card_id, closeForm, frontSide, backSide }) {
     const [isFlipped, setIsFlipped] = useState(false);
 
@@ -35,6 +37,8 @@ export default function Card({ card_id, closeForm, frontSide, backSide }) {
         <div className="flash-card-container" onClick={handleClick}>
             <div 
               className="flash-card" 
+              
+              //Flipping animation when the card is clicked
               style={{transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)"}}>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
                 <div className="flash-card-front">
