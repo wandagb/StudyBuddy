@@ -2,6 +2,8 @@ import './styling/Navbar.css'
 import { useState } from 'react'
 import useFetch from '../useFetch'
 
+// Search Bar Component
+
 export default function SearchBar() {
     const [filteredData, setFilteredData] = useState([])
     const { data: sets } = useFetch(`/api/items/sets`)

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useSetsContext } from "../hooks/useSetsContext";
 
-// Set Card Component
+// Set of Flashcards Component
 
 const FlashSet = ({set, isHomePage}) => {
     const navigate = useNavigate()
@@ -14,10 +14,12 @@ const FlashSet = ({set, isHomePage}) => {
     const { user } = useAuthContext();
     const { dispatch } = useSetsContext();
 
+    //Redirect to the set page
     function handleClick() {
         navigate(`/set/${setID}`)
     }
 
+    //Deletes the cards in the set and the set itself
     const handleDelete = async () => {
         console.log(set._id)
 
@@ -48,7 +50,7 @@ const FlashSet = ({set, isHomePage}) => {
                 
                 {isHomePage && (
                     <div className="delete-card" onClick={(e) => {
-                        e.stopPropagation(); // Stop the click event from propagating
+                        e.stopPropagation();
                         handleDelete();
                     }}>
                      <div className="delete-set-button">

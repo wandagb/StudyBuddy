@@ -1,9 +1,9 @@
-
 import React, { useEffect } from 'react'
 import { useSetsContext } from '../hooks/useSetsContext.js';
 import "../App.css";
 import FlashSet from "../components/Flashset.js"
 
+//gets all existing sets in the database
 export const ExplorePage = () => {
     const {sets, dispatch} = useSetsContext()
 

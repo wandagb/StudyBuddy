@@ -1,3 +1,4 @@
+/* Styling for the flashcards */
 .flash-card-container {
   perspective: 1000px;
   width: 25vmin;
@@ -26,7 +27,7 @@
   border-radius: 10px;
   padding: 15px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Adding shadow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .flash-card-front {

@@ -1,3 +1,4 @@
+/* Styling for the clickable sets that appear on the home page and explore page */
 .set-container {
   display:flex;
   justify-content: center;
@@ -30,6 +31,7 @@
     text-align: center;
   }
 
+  /* Styling for when you hover over the set */
   .set-card:hover {
     cursor: pointer;
     background-color: #f6f7fb;

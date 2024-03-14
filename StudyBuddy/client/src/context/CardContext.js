@@ -2,15 +2,16 @@ import { createContext, useReducer} from "react";
 
 export const CardsContext = createContext()
 
+//reducer function to maage card states
 export const cardsReducer = (state, action) => {
     switch (action.type) {
         case 'GET_CARDS':
             return {
-                cards: action.payload
+                cards: action.payload //update state with fetched cards
             }
         case 'CREATE_CARD':
             return {
-                cards: [action.payload, ...state.cards]
+                cards: [action.payload, ...state.cards] //add new card to existing set
             }
         case 'DELETE_CARD':
             return {
@@ -21,6 +22,7 @@ export const cardsReducer = (state, action) => {
     }
 }
 
+//provide cards context to its children
 export const CardsContextProvider = ({ children }) => {
 
     const [state, cardDispatch] = useReducer(cardsReducer, {

@@ -1,4 +1,4 @@
-
+//displays when page is not found
 export const PageNotFound = () => {
 
     return ( 

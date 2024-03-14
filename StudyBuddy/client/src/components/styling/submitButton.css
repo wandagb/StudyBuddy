@@ -1,3 +1,4 @@
+/* Styling for the submit button and the logout button */
 .submit-button {
     background-color: #48459f; 
     border: none;
@@ -12,8 +13,9 @@
     border-radius: 5px;
   }
   
+  /* Styling for when you hover over the submit button */
   .submit-button:hover {
-    background-color: #292670; /* Darker Green */
+    background-color: #292670;
   }
 
   .toggle-button {
@@ -26,14 +28,15 @@
   }
 
   .toggle-button:hover {
-    background-color: #292670; /* Darker Green */
+    background-color: #292670;
   }
 
+  /* Styling for the logout button */
   .logout-button {
     background-color: #48459f; 
     border: none;
     color: white;
-    padding: 9px 15px; /* This changes the size of the button */
+    padding: 9px 15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -43,6 +46,7 @@
     border-radius: 5px;
   }
   
+  /* Styling for when you hover over the logout button */
   .logout-button:hover {
     background-color: #292670; 
   }

@@ -10,6 +10,7 @@ export const useLogin = () => {
     setIsLoading(true)
     setError(null)
 
+    //send login request to server
     const response = await fetch('/api/user/login', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -17,10 +18,13 @@ export const useLogin = () => {
     })
     const json = await response.json()
 
+    //check if the response is invalid
     if (!response.ok) {
       setIsLoading(false)
       setError(json.error)
     }
+    
+    //login is successful
     if (response.ok) {
       // save the user to local storage
       localStorage.setItem('user', JSON.stringify(json))

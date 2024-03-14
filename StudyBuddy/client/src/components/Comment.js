@@ -1,6 +1,8 @@
 import "../App.css"
 import "./styling/Comment.css"
 
+//Comment component
+
 export default function Comment({ text, poster }) {
 
     return (

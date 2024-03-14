@@ -1,3 +1,4 @@
+/* Styling for comments */
 .comment {
     width: 500px;
     min-height: 100px;
@@ -37,6 +38,7 @@
 
 }
 
+/* Styling for when you hover over the comment */
 .comment:hover {
     cursor: pointer;
     background-color: #f6f7fb;
