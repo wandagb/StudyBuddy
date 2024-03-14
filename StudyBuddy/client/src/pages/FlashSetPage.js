@@ -15,6 +15,7 @@ export const FlashcardSetPage = () => {
     const {sets, comments, dispatch } = useSetsContext()
     const [comment, setComment] = useState('')
     
+    //submits comments to database and displays it on the page
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -41,6 +42,7 @@ export const FlashcardSetPage = () => {
         }
     }
     
+    //fetches sets everytime data is changed or updated
     useEffect(() => {
         const fetchSet = async () => {
             const response = await fetch(`/api/items/set/${setID}`, {

@@ -7,6 +7,7 @@ export const SignupPage = () => {
     const [password, setPassword] = useState('')
     const {signup, error, isLoading} = useSignup()
 
+    //creates new user after inputing email, username and password
     const handleSubmit = async (e) => {
         e.preventDefault()
 
