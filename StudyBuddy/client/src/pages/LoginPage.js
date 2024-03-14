@@ -2,12 +2,13 @@ import { useState} from "react"
 import { useLogin } from "../hooks/useLogin"
 import '../components/styling/Login.css'
 
+
 export const LoginPage = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const {login, error, isLoading} = useLogin()
     
-
+    //waits for user to input username and login 
     const handleSubmit = async (e) => {
         e.preventDefault()
 

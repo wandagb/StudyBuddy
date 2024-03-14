@@ -18,7 +18,7 @@ export const SetForm = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate(); 
 
-
+    //only signed in user can create a set
     const handleSubmit = async (e) =>{
         e.preventDefault();
 
@@ -28,7 +28,7 @@ export const SetForm = () => {
         }
 
         const set = { name }
-
+        //creates new set
         const response = await fetch('/api/items/set', {
             method: 'POST',
             body: JSON.stringify(set),
