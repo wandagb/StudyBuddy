@@ -37,7 +37,7 @@ SECRET=
 ```
 For the database key (DB_URI) please email: studybuddycs35L@gmail.com
 
-You can make secret anything you'd like. Ex: 1234
+You can make SECRET anything you'd like. Ex: ILoveCS35L
 
 Execute the build script that initializes the client and server in the terminal:
 ```bash
