@@ -5,7 +5,6 @@ const app = express()
 var mongoose = require('mongoose');
 const requireAuth = require('../middleware/requireAuth');
 
-
 ////////////////////
 /* Flashcard APIs */
 ////////////////////
@@ -22,7 +21,6 @@ router.get("/sets", async (req, res) => {
 
     return res.status(200).json(set)
 });
-
 
 // Get flashcard from a set
 router.get("/flashcard/:id", async (req, res) => {
@@ -55,7 +53,6 @@ router.get("/set/:id", async (req, res) => {
 //Below are routes that are secured ( require authentication )
 router.use(requireAuth)
 
-
 // Find user's sets only
 router.get("/user-sets", async (req, res) => {
 
@@ -69,7 +66,6 @@ router.get("/user-sets", async (req, res) => {
 
     res.status(200).json(sets)
 });
-
 
 // Create an empty flashcard set
 // Requires: Name of set
@@ -93,7 +89,6 @@ router.post("/set", async (req, res) => {
         }
     }
 });
-
 
 // Create one flashcard
 // Requires: Question and Answer
@@ -139,7 +134,6 @@ router.delete('/flashcard/:id', async (req, res) => {
     }
 
     try {
-        // Delete the card
         const deleteCard = await flashcards.findOneAndDelete({ _id: id });
 
         if (!deleteCard) {
@@ -163,7 +157,6 @@ router.delete('/set/:id', async (req, res) => {
     }
 
     try {
-        // Delete the set from users sets
         const deleteSet = await flashsets.findOneAndDelete({ _id: id });
 
         if (!deleteSet) {
@@ -195,6 +188,5 @@ router.post("/set/:setID/comment", async (req, res) => {
     }    
     res.status(200).json(updatedSet)
 });
-
 
 module.exports = router
