@@ -11,7 +11,7 @@ export default function SearchBar() {
         const searchWord = event.target.value
 
         // Filter our data based on user input in our data 
-        const newFilter = sets.filter((value) => {
+        const newFilter = sets?.filter((value) => {
             return value.name.toLowerCase().includes(searchWord.toLowerCase());
         });
         // Check if the search is empty or has text in it

@@ -14,14 +14,13 @@ const Navbar = () => {
     const handleClick = () => {
       logout();
       navigate('/home/');
-
     }
 
     return (
         <header className ="header">
             <div className = "navbar"> 
             <a className ="title" href="/home">StudyBuddy</a>
-            <img className = "logo" src={mainLogo}></img>
+            <img className = "logo" src={mainLogo} alt="Logo"></img>
             <ul>     
 
                 {!user && (

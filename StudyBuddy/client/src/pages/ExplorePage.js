@@ -28,7 +28,7 @@ export const ExplorePage = () => {
                     <div className='section-container'>
                         <div className='card-container'>
                             <div className="set-container">
-                            {sets && sets.map((set) => (
+                            {sets && sets?.map((set) => (
                                     <FlashSet key={set._id} set={set} isHomePage={false}/>
                                 ))}
                             </div>

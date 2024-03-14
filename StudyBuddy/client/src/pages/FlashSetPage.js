@@ -60,11 +60,11 @@ export const FlashcardSetPage = () => {
             if(response.ok){
                 cardDispatch({type: 'GET_CARDS', payload: json})
             }
-        }    
-        fetchSet();
-        fetchCards();
-        console.log("Hu");   
-
+        }
+       
+        fetchSet()
+        fetchCards()
+        
         }, [dispatch, cardDispatch, setID, user]);
     return (
         <>       
@@ -78,17 +78,18 @@ export const FlashcardSetPage = () => {
                         setOpenForm(true);
                     }}
                     >
-                        ⚙
+                        ⚙  
                     </button>}
                     {openForm && <FlashcardForm set_id={setID} closeForm ={setOpenForm}/>}
                         <div className='set-container'>
-                            {cards && cards.map((card) => (
+                            {cards && cards?.map((card) => (
                                 <Card key={card._id} card_id = {card._id} frontSide={card.question} backSide={card.answer} closeForm ={openForm}/>
                             ))}
                         </div>
                     </div>
-                    <form className="post-comment" onSubmit={handleSubmit}>
+                    {user !== null && <form className="post-comment" onSubmit={handleSubmit}>
                         <div>
+                            <h2>Comments:</h2>
                             <textarea 
                             id="comment-message"
                             type="text"
@@ -97,7 +98,7 @@ export const FlashcardSetPage = () => {
                             rows="4" required></textarea>
                         </div>
                         <button className='submit-button'>Post Comment</button>
-                     </form>
+                     </form>}
                 </div>
                 {comments && comments?.toReversed().map((comment) => (
                     <Comment text={comment.text} poster={comment.poster}/>

@@ -35,7 +35,7 @@ export const SetForm = () => {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${user.token}`
-            }
+            } 
         });
 
         const newSet = await response.json();
