@@ -4,6 +4,8 @@ import { useCardsContext } from '../hooks/useCardsContext';
 import '../components/styling/submitButton.css';
 import '../components/styling/create.css';
 
+// Form that handles adding a flashcard given set ID
+
 const FlashcardForm = ({ set_id, closeForm}) => {
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
@@ -29,13 +31,11 @@ const FlashcardForm = ({ set_id, closeForm}) => {
         const newFlashcard = await response.json()
 
         if(!response.ok){
-            console.log("bad")
             setError(newFlashcard.error)
             setEmptyFields(newFlashcard.emptyFields)
         }
 
         if (response.ok){
-            console.log("good")
             setAnswer('')
             setQuestion('')
             setError(null)

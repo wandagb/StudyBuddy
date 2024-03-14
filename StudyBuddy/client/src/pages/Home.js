@@ -39,10 +39,10 @@ export const Home = () => {
         <>
         <div className='wrapper-main'>
             <div className='section-container'>
-                <div className="home-title"><h2 > {user.username}'s home</h2></div>
+                <div className="home-title"><h2 > {user?.username}'s home</h2></div>
                 
                 <div className='home-sets'>
-                {sets && sets.map((set) => (
+                {sets && sets?.map((set) => (
                     <FlashSet key={set._id} set={set} isHomePage={true}/>
                 ))}
                 </div>

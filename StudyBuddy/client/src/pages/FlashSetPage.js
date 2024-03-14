@@ -82,7 +82,7 @@ export const FlashcardSetPage = () => {
                     </button>}
                     {openForm && <FlashcardForm set_id={setID} closeForm ={setOpenForm}/>}
                         <div className='set-container'>
-                            {cards && cards.map((card) => (
+                            {cards && cards?.map((card) => (
                                 <Card key={card._id} card_id = {card._id} frontSide={card.question} backSide={card.answer} closeForm ={openForm}/>
                             ))}
                         </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Flashcard.css";
+import "./styling/Flashcard.css";
 import { useCardsContext } from '../hooks/useCardsContext';
 import { useAuthContext } from "../hooks/useAuthContext";
 import {useState} from "react"

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { Home } from './pages/Home';
 import { LoginPage } from './pages/LoginPage';
 import { SignupPage } from './pages/SignUpPage';
-import { FlashcardSetPage } from './pages/FlashSet';
+import { FlashcardSetPage } from './pages/FlashSetPage';
 import { ExplorePage } from './pages/ExplorePage';
 import { SetForm } from './pages/CreatePage'
 import { useAuthContext } from './hooks/useAuthContext';

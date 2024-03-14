@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useSetsContext } from "../hooks/useSetsContext";
 
-// Sample Set Card
+// Set Card Component
 
 const FlashSet = ({set, isHomePage}) => {
     const navigate = useNavigate()
