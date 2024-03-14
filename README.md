@@ -1,5 +1,6 @@
 # StudyBuddy
 StudyBuddy is a full-stack MERN web app that allows users to create study sets using flashcards.
+Link to public repo: https://github.com/wandagb/StudyBuddy
 
 ## Table of Contents
 1. [Features](#features)
@@ -29,7 +30,7 @@ StudyBuddy is a full-stack MERN web app that allows users to create study sets u
 
 ## Setup
 First, clone or download this repository.
-Second, create a `.env` file in the server directory. The `.env` file should contain:
+Second, create a `.env` file in the StudyBuddy/server directory. The `.env` file should contain:
 ```
 DB_URI=
 PORT=4000
