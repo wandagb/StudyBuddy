@@ -15,7 +15,7 @@ function App(){
     <Router>
         <Navbar />
         <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route exact path="/" element={!user ? <Navigate to="/login" /> : <Navigate to="/home" />} />
                 <Route
                     path="*"
                     element={<PageNotFound />}
