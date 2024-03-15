@@ -66,6 +66,17 @@ npm start
 ```
 
 ## Authors
-**Created by:** Wanda Barahona, Mark Diaz, Teodors Smith, Hugo Sandoval, and Andrew Rubio.
+**Contributors**
+
+Wanda: Backend APIs
+
+Andrew: Backend User Authentication
+
+Mark: Frontend Forms and Pages
+
+Ted: Frontend Flashcards/Sets
+
+Hugo: Frontend Comment System
+
 
 StudyBuddy was created as a project for CS 35L taught by Professor Paul Eggert at UCLA in Winter 2024.
